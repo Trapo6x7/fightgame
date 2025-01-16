@@ -8,8 +8,9 @@ abstract class Character {
     protected int $attack;
     protected int $defense;
     protected bool $isAlive;
+    protected string $imageUrl;
 
-    public function __construct(int $id, string $name, int $attack, int $defense, int $pv = 100, bool $isAlive = true)
+    public function __construct(int $id, string $name, int $attack, int $defense, string $imageUrl, int $pv = 100, bool $isAlive = true)
     {
         $this->id = $id;
         $this->name = $name;
@@ -17,6 +18,7 @@ abstract class Character {
         $this->attack = $attack;
         $this->defense = $defense;
         $this->isAlive =$this->pv > 0;
+        $this->imageUrl = $imageUrl;
     }
 
     public function getId(): int
@@ -77,5 +79,13 @@ abstract class Character {
         if ($this->isAlive) {
             $this->setPv($this->pv + $amount);
         }
+    }
+
+    /**
+     * Get the value of imageUrl
+     */ 
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
     }
 }

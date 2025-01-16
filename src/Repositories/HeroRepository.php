@@ -54,8 +54,8 @@ final class HeroRepository extends AbstractRepository
     public function insert(int $id, string $name, int $pv = 100, int $attack, int $defense, bool $isAlive = true): ?int
     {
         // Utilisation des backticks pour entourer le nom de la table
-        $sql = "INSERT INTO `character` (id, name, pv, attack, defense, is_alive)
-                VALUES (:id, :name, :pv, :attack, :defense, :is_alive);";
+        $sql = "INSERT INTO `character` (id, name, pv, attack, defense, is_alive, image_url)
+                VALUES (:id, :name, :pv, :attack, :defense, :is_alive, :image_url);";
     
         try {
             // Préparer la requête SQL
@@ -68,6 +68,7 @@ final class HeroRepository extends AbstractRepository
             $stmt->bindParam(':attack', $attack, PDO::PARAM_INT);
             $stmt->bindParam(':defense', $defense, PDO::PARAM_INT);
             $stmt->bindParam(':is_alive', $isAlive, PDO::PARAM_BOOL);
+            $stmt->bindParam(':image_url', $imageUrl, PDO::PARAM_BOOL);
     
             // Exécuter la requête
             $stmt->execute();

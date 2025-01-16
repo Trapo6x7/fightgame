@@ -21,6 +21,7 @@ class FightsManager
         <main>
             <section class="flex">
                 <?php foreach ($this->heroRepository->findAll() as $hero) :  ?>
+                    <img src="<?= $hero->getimageUrl() ?>" alt="">
                     <form action="./fight.php?id=<?= $hero->getId() ?>" method="post" class="card">
                         <input type="radio" name="<?= htmlspecialchars($hero->getName()) ?>" value="<?= $hero->getId() ?>" id="">
                         <h1><?= htmlspecialchars($hero->getName()) ?></h1>
