@@ -2,20 +2,14 @@
 
 final class Hero extends Character
 {
- 
-    public function __construct(int $id, string $name, int $attack, int $defense, int $pv = 100)
+
+    public function __construct(int $id, string $name, int $attack, int $defense, int $pv = 100, bool $isAlive = true)
     {
-        parent::__construct($id, $name, $attack, $defense, $pv);
+        parent::__construct($id, $name, $attack, $defense, $pv, $isAlive);
     }
 
-    public function attack(Monster $monster): void
+    public function specialAttack(): int
     {
-        if ($monster->getDefense() >= $this->attack){
-            $monster->getPv();
-        } else {
-            $monster->setPv(($monster->getPv()-$this->attack) + $monster->getDefense());
-        }
+        return $this->attack * 2;
     }
-
-  
 }
