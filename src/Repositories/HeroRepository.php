@@ -1,35 +1,35 @@
 <?php
 
-final class CharacterRepository extends AbstractRepository
+final class HeroRepository extends AbstractRepository
 {
 
 
-    private CharacterMapper $mapper;
+    private HeroMapper $mapper;
 
     public function __construct()
     {
         parent::__construct();
-        $this->mapper = new CharacterMapper;
+        $this->mapper = new HeroMapper;
     }
 
     
     public function findAll(): array
     {
-        $query = "SELECT * FROM 'character'";
+        $query = "SELECT * FROM `character`";
         $stmt = $this->pdo->query($query);
         $characterDatas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($characterDatas as $characterData) {
-            $characters[] = CharacterMapper::mapToObject($characterData);
+            $characters[] = HeroMapper::mapToObject($characterData);
         }
 
         return $characters;
     }
     
 
-    public function findById(string $id): ?Character
+    public function findById(string $id): ?Hero
     {
-        $sql = "SELECT * FROM 'character' WHERE id = :id";
+        $sql = "SELECT * FROM `character` WHERE id = :id";
 
         try {
 
@@ -42,7 +42,7 @@ final class CharacterRepository extends AbstractRepository
             echo "Erreur lors de la requete : " . $error->getMessage();
         }
 
-        $hero = CharacterMapper::mapToObject($heroData);
+        $hero = HeroMapper::mapToObject($heroData);
 
         if ($hero) {
             return $hero;

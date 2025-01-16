@@ -7,20 +7,20 @@ class FightsManager
     // Méthode principale pour lancer un combat
     public function startFight(Hero $hero, Monster $monster): void
     {
-        echo "Le combat commence entre {$hero->getName()} et {$monster->getName()} !\n";
+        echo "<br> Le combat commence entre {$hero->getName()} et {$monster->getName()} ! ";
 
         while ($hero->getIsAlive() && $monster->getIsAlive()) {
             // Tour du héros
             $this->executeTurn($hero, $monster);
             if (!$monster->getIsAlive()) {
-                echo "{$hero->getName()} a gagné !\n";
+                echo "<br> {$hero->getName()} a gagné !\n";
                 break;
             }
 
             // Tour du monstre
             $this->executeTurn($monster, $hero);
             if (!$hero->getIsAlive()) {
-                echo "{$monster->getName()} a gagné !\n";
+                echo "<br> {$monster->getName()} a gagné !\n";
                 break;
             }
         }
@@ -32,10 +32,10 @@ class FightsManager
         $damage = max(0, $attacker->getAttack() - $defender->getDefense());
         $defender->takeDamage($damage);
         if ($defender->getDefense() < $attacker->getAttack()) {
-            echo "{$attacker->getName()} attaque {$defender->getName()} et inflige $damage dégâts!\n";
-            echo "{$defender->getName()} a maintenant {$defender->getPv()} PV.\n";
+            echo "<br> {$attacker->getName()} attaque {$defender->getName()} et inflige $damage dégâts!\n";
+            echo "<br> {$defender->getName()} a maintenant {$defender->getPv()} PV.\n";
         } else {
-            echo "{$attacker->getName()} attaque {$defender->getName()} mais rien ne se passe!\n";
+            echo "<br> {$attacker->getName()} attaque {$defender->getName()} mais rien ne se passe!\n";
         }
     }
 }
