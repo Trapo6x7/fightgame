@@ -8,9 +8,9 @@ class HeroMapper implements MapperInterface
         return new Hero(
             $data['id'],
             $data['name'],
-            $data['pv'],
             $data['attack'],
             $data['defense'],
+            $data['pv'],
         );
     }
 }

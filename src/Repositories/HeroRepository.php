@@ -51,7 +51,7 @@ final class HeroRepository extends AbstractRepository
         }
     }
 
-    public function insert(int $id, string $name, int $pv, int $attack, int $defense, bool $isAlive = true): ?int
+    public function insert(int $id, string $name, int $pv = 100, int $attack, int $defense, bool $isAlive = true): ?int
     {
         // Utilisation des backticks pour entourer le nom de la table
         $sql = "INSERT INTO `character` (id, name, pv, attack, defense, is_alive)
