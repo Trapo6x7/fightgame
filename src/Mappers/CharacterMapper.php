@@ -1,11 +1,11 @@
 <?php
 
 
-class MonsterMapper implements MapperInterface
+class CharacterMapper implements MapperInterface
 {
-    public static function mapToObject(array $data): Monster
+    public static function mapToObject(array $data): Character
     {
-        return new Monster(
+        return new Character(
             $data['id'],
             $data['name'],
             $data['pv'],

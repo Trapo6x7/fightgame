@@ -7,10 +7,7 @@ final class Monster extends Character
     {
         parent::__construct($id, $name, $attack, $defense, $pv, $isAlive);
     }
-    
-    public function roar(): string
-    {
-        return "{$this->getName()} rugit férocement !";
-    }
 
 }
+
+

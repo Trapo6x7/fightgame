@@ -8,8 +8,4 @@ final class Hero extends Character
         parent::__construct($id, $name, $attack, $defense, $pv, $isAlive);
     }
 
-    public function specialAttack(): int
-    {
-        return $this->attack * 2;
-    }
 }
