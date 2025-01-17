@@ -28,4 +28,9 @@ class Hero extends Character
             }
         }
     }
+
+    public function increaseDefense(int $amount): void
+    {
+        $this->defense += $amount;  // Augmente la défense de la valeur spécifiée
+    }
 }

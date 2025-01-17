@@ -88,4 +88,46 @@ class FightsManager
             echo "<br> {$attacker->getName()} attaque {$defender->getName()} mais rien ne se passe!\n";
         }
     }
+
+    public function processAjaxAction(int $heroId, string $action)
+{
+    $hero = $this->heroRepository->findById($heroId);
+    $monster = $this->monsterRepository->getCurrentMonster(); // Implémente une méthode pour récupérer le monstre actif
+
+    if (!$hero || !$monster) {
+        return ['error' => 'Héros ou monstre introuvable'];
+    }
+
+    switch ($action) {
+        case 'attack':
+            $this->executeTurn($hero, $monster);
+            break;
+
+        case 'defend':
+            $hero->increaseDefense(5); // Méthode à ajouter dans `Hero`
+            break;
+
+        default:
+            return ['error' => 'Action non reconnue'];
+    }
+
+    // Tour du monstre
+    $this->executeTurn($monster, $hero);
+
+    return [
+        'message' => 'Tour terminé',
+        'state' => [
+            'hero' => [
+                'name' => $hero->getName(),
+                'pv' => $hero->getPv(),
+                'defense' => $hero->getDefense(),
+            ],
+            'monster' => [
+                'name' => $monster->getName(),
+                'pv' => $monster->getPv(),
+                'defense' => $monster->getDefense(),
+            ],
+        ],
+    ];
+}
 }

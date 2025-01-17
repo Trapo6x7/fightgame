@@ -69,4 +69,27 @@ final class MonsterRepository extends AbstractRepository
             return null;
         }
     }
+    
+    public function getCurrentMonster(): ?Monster
+    {
+        // Exemple simple : récupérer un monstre aléatoire
+        $monsters = $this->findAll();
+        if (empty($monsters)) {
+            return null; // Aucun monstre disponible
+        }
+
+        // Si tu veux gérer le monstre actif en session
+        if (isset($_SESSION['current_monster_id'])) {
+            foreach ($monsters as $monster) {
+                if ($monster->getId() === $_SESSION['current_monster_id']) {
+                    return $monster;
+                }
+            }
+        }
+
+        // Sinon, sélectionne un monstre aléatoire
+        $randomMonster = $monsters[array_rand($monsters)];
+        $_SESSION['current_monster_id'] = $randomMonster->getId();
+        return $randomMonster;
+    }
 }
