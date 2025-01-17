@@ -30,3 +30,8 @@ main {
   display: flex;
   gap: 10%;
 }
+
+.imageselect{
+  width: 100px;
+  height: auto;
+}

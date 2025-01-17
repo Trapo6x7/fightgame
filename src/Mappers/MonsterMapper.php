@@ -8,9 +8,11 @@ class MonsterMapper implements MapperInterface
         return new Monster(
             $data['id'],
             $data['name'],
-            $data['pv'],
             $data['attack'],
             $data['defense'],
+            $data['type'],
+            $data['pv'],
+            $data['is_alive'],
         );
     }
 }

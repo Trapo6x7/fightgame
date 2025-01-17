@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title>Fight</title>
     <link rel="stylesheet" href="./asset/styles/style.css">
     <script defer src="../script/script.js"></script>
 </head>
