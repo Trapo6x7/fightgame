@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fight</title>
     <link rel="stylesheet" href="./asset/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script defer src="../script/script.js"></script>
 </head>
 
