@@ -6,18 +6,22 @@ $heroRepo = new HeroRepository;
 $monsterRepo = new MonsterRepository;
 $fightManager = new FightsManager;
 
-
-
-$monsterKaaris= new Monster(1, "kaaris", 60, 20, "https://diffusionph.cccommunication.biz/jpgok/RepGR/747/747512_2.jpg", 100);
-$kaarisInser = $monsterRepo->insert($monsterKaaris);
-
-$hero= new Hero(1, "sirene", 40, 50, "", "heal");
-$heroInser = $heroRepo->insert($hero);
-var_dump($hero, $monsterKaaris);
-
-
 ?>
 
+<section>
+<form action="../src/process/add_hero.php" method="POST">
+    <label for="name">Nom du Héros:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="specialSkill">Compétence Spéciale:</label>
+    <select id="specialSkill" name="specialSkill" required>
+        <option value="heal">Heal</option>
+        <option value="buff_attack">Buff d'attaque</option>
+    </select><br><br>
+
+    <input type="submit" value="Ajouter le Héros">
+</form>
+</section>
 <!-- $fightManager->displayHero() -->
 
 <?php

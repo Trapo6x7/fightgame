@@ -41,26 +41,32 @@ final class HeroRepository extends AbstractRepository
 
     public function insert(Hero $hero): ?int
     {
-        $sql = "INSERT INTO hero (id, name, pv, attack, defense, is_alive, image_url, special_skill)
-                VALUES (:id, :name, :pv, :attack, :defense, :is_alive, :image_url, :special_skill);";
-
+        $sql = "INSERT INTO hero (name, attack, defense, pv, is_alive, image_url, special_skill)
+                VALUES (:name, :attack, :defense, :pv, :is_alive, :image_url, :special_skill)";
+    
         try {
             $stmt = $this->pdo->prepare($sql);
-
-            $stmt->bindValue(':id', $hero->getId(), PDO::PARAM_INT);
+    
+            // Bind des paramètres
             $stmt->bindValue(':name', $hero->getName(), PDO::PARAM_STR);
-            $stmt->bindValue(':pv', $hero->getPv(), PDO::PARAM_INT);
             $stmt->bindValue(':attack', $hero->getAttack(), PDO::PARAM_INT);
             $stmt->bindValue(':defense', $hero->getDefense(), PDO::PARAM_INT);
+            $stmt->bindValue(':pv', $hero->getPv(), PDO::PARAM_INT);
             $stmt->bindValue(':is_alive', $hero->getIsAlive(), PDO::PARAM_BOOL);
             $stmt->bindValue(':image_url', $hero->getImageUrl(), PDO::PARAM_STR);
             $stmt->bindValue(':special_skill', $hero->getSpecialSkill(), PDO::PARAM_STR);
-
+    
+            // Exécution de la requête
             $stmt->execute();
+    
+            // Récupérer l'ID généré après l'insertion
+            $heroId = $this->pdo->lastInsertId();
 
-            return (int) $this->pdo->lastInsertId();
+    
+            // Retourner l'ID du héros inséré
+            return $heroId;
         } catch (PDOException $error) {
-            echo "Erreur lors de la requête : " . $error->getMessage();
+            echo "Erreur lors de l'insertion du héros : " . $error->getMessage();
             return null;
         }
     }

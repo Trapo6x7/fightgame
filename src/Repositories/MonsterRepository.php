@@ -41,13 +41,15 @@ final class MonsterRepository extends AbstractRepository
 
     public function insert(Monster $monster): ?int
     {
-        $sql = "INSERT INTO monster (id, name, pv, attack, defense, is_alive, image_url, ferocity)
-                VALUES (:id, :name, :pv, :attack, :defense, :is_alive, :image_url, :ferocity);";
+
+        var_dump($monster);
+   
+        $sql = "INSERT INTO monster ( name, pv, attack, defense, is_alive, image_url, ferocity)
+                VALUES ( :name, :pv, :attack, :defense, :is_alive, :image_url, :ferocity);";
 
         try {
             $stmt = $this->pdo->prepare($sql);
 
-            $stmt->bindValue(':id', $monster->getId(), PDO::PARAM_INT);
             $stmt->bindValue(':name', $monster->getName(), PDO::PARAM_STR);
             $stmt->bindValue(':pv', $monster->getPv(), PDO::PARAM_INT);
             $stmt->bindValue(':attack', $monster->getAttack(), PDO::PARAM_INT);
@@ -58,7 +60,10 @@ final class MonsterRepository extends AbstractRepository
 
             $stmt->execute();
 
-            return (int) $this->pdo->lastInsertId();
+            $monsterId = $this->pdo->lastInsertId();
+
+            return $monsterId;
+
         } catch (PDOException $error) {
             echo "Erreur lors de la requête : " . $error->getMessage();
             return null;

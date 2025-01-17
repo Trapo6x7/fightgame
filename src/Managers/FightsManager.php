@@ -32,6 +32,12 @@ class FightsManager
                     </form>
                 <?php endforeach ?>
             </section>
+            <section>
+                <form action="./home.php" method="post">
+                    
+                <!-- https://i.pinimg.com/736x/74/aa/81/74aa81e3a2526bdbce75fdacfba7a043.jpg -->
+                </form>
+            </section>
         </main>
 
 <?php

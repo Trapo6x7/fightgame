@@ -1,12 +1,12 @@
 <?php
 
-final class Monster extends Character
-{
+class Monster extends Character {
     private int $ferocity;
 
-    public function __construct(int $id, string $name, int $attack, int $defense, string $imageUrl, int $ferocity, int $pv = 100, bool $isAlive = true)
+    public function __construct(string $name, int $pv, int $attack, int $defense, string $imageUrl, int $ferocity, bool $isAlive = true)
     {
-        parent::__construct($id, $name, $attack, $defense, $imageUrl, $ferocity, $pv, $isAlive);
+        // Appel du constructeur parent avec les arguments appropriés
+        parent::__construct($name, $pv ,$attack, $defense, $imageUrl, $isAlive);
         $this->ferocity = $ferocity;
     }
 
