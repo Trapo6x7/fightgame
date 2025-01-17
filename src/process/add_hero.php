@@ -28,5 +28,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     
-    header("Location: ../../public/fight.php");
+    header("Location: ../../public/fight.php?id=" . $heroId);
 }
