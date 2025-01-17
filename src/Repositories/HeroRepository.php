@@ -41,8 +41,8 @@ final class HeroRepository extends AbstractRepository
 
     public function insert(Hero $hero): ?int
     {
-        $sql = "INSERT INTO hero (id, name, pv, attack, defense, is_alive, image_url)
-                VALUES (:id, :name, :pv, :attack, :defense, :is_alive, :image_url);";
+        $sql = "INSERT INTO hero (id, name, pv, attack, defense, is_alive, image_url, special_skill)
+                VALUES (:id, :name, :pv, :attack, :defense, :is_alive, :image_url, :special_skill);";
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -54,6 +54,7 @@ final class HeroRepository extends AbstractRepository
             $stmt->bindValue(':defense', $hero->getDefense(), PDO::PARAM_INT);
             $stmt->bindValue(':is_alive', $hero->getIsAlive(), PDO::PARAM_BOOL);
             $stmt->bindValue(':image_url', $hero->getImageUrl(), PDO::PARAM_STR);
+            $stmt->bindValue(':special_skill', $hero->getSpecialSkill(), PDO::PARAM_STR);
 
             $stmt->execute();
 

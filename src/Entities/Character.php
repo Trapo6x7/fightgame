@@ -10,11 +10,12 @@ abstract class Character {
     protected bool $isAlive;
     protected string $imageUrl;
 
+
     public function __construct(int $id, string $name, int $attack, int $defense, string $imageUrl, int $pv = 100, bool $isAlive = true)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->pv = max(0, $pv);
+        $this->pv = $pv;
         $this->attack = $attack;
         $this->defense = $defense;
         $this->isAlive =$this->pv > 0;

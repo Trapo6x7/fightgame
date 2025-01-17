@@ -8,11 +8,12 @@ $fightManager = new FightsManager;
 
 
 
-// $monsterKaaris= new Monster(1, "kaaris", 60, 20, "https://diffusionph.cccommunication.biz/jpgok/RepGR/747/747512_2.jpg", 100);
-// $kaarisInser = $monsterRepo->insert($monsterKaaris);
+$monsterKaaris= new Monster(1, "kaaris", 60, 20, "https://diffusionph.cccommunication.biz/jpgok/RepGR/747/747512_2.jpg", 100);
+$kaarisInser = $monsterRepo->insert($monsterKaaris);
 
-// $hero= new Hero(1, "sirene", 40, 30, "", "heal");
-// $heroInser = $heroRepo->insert($hero);
+$hero= new Hero(1, "sirene", 40, 50, "", "heal");
+$heroInser = $heroRepo->insert($hero);
+var_dump($hero, $monsterKaaris);
 
 
 ?>
