@@ -9,11 +9,13 @@ final class Partner extends Pokemon{
     protected int $defense;
     protected string $imageUrl;
     private int $level;
+    private array $skills;
 
-    public function __construct(int $id, string $name,int $attack, int $defense, string $imageUrl, int $pv = 100,  int $level = 1)
+    public function __construct(int $id, string $name,int $attack, int $defense, string $imageUrl, array $skills, int $pv = 100,  int $level = 1)
     {
         Parent::__construct($name, $pv, $attack, $defense, $imageUrl);
         $this->level = $level;
+        $this->skills= [];
     }
 
     public function getId() : int
@@ -95,4 +97,16 @@ final class Partner extends Pokemon{
         return $this;
     }
 
+
+    public function getSkills() : array
+    {
+        return $this->skills;
+    }
+
+    public function setSkills($skills) : self
+    {
+        $this->skills = $skills;
+
+        return $this;
+    }
 }

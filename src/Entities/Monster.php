@@ -10,13 +10,15 @@ final class Monster extends Pokemon{
     protected string $imageUrl;
     private int $ferocity;
     private int $difficultyLevel;
+    private array $skills;
 
-    public function __construct(int $id, string $name,int $attack, int $defense, string $imageUrl, int $ferocity, int $difficultyLevel, int $pv = 100)
+    public function __construct(int $id, string $name,int $attack, int $defense, string $imageUrl, int $ferocity, int $difficultyLevel, array $skill, int $pv = 100)
     {
         Parent::__construct($name, $pv, $attack, $defense, $imageUrl);
         $this->ferocity = $ferocity;
         $this->difficultyLevel = $difficultyLevel;
         $this->attack = round($attack + round(($ferocity / 8)));
+        $this->skills= [];
     }
 
     public function getId() : int
@@ -104,6 +106,18 @@ final class Monster extends Pokemon{
     public function setDifficultyLevel($difficultyLevel) : self
     {
         $this->difficultyLevel = $difficultyLevel;
+
+        return $this;
+    }
+    
+    public function getSkills() : array
+    {
+        return $this->skills;
+    }
+
+    public function setSkills($skills) : self
+    {
+        $this->skills = $skills;
 
         return $this;
     }

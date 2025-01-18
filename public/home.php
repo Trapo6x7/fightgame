@@ -9,6 +9,14 @@ require_once './asset/partials/header.php';
 $parterRepository = new PartnerRepository;
 $monsterRepository = new MonsterRepository;
 
+// $partnerRepository = new PartnerRepository();
+// $partner = $partnerRepository->findById($partnerId);
+
+// $skillRepository = new SkillRepository();
+// $skills = $skillRepository->findByPartnerId($partner->getId());
+// $partner->setSkills($skills);
+
+
 // $dracaufeu = new Partner(1, "Dracaufeu", 30, 20, "./asset/imgs/spritedracaufeu.png");
 // $tortank = new Partner(2, "Tortank", 20, 30, "./asset/imgs/spritetortank.png");
 // $florizarre = new Partner(3, "Florizarre", 25, 25, "./asset/imgs/spriteflorizarre.png");
