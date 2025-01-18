@@ -1,32 +1,30 @@
 <?php
-include_once "../../utils/autoloader.php";
 session_start();
+require_once '../../utils/autoloader.php'; // Inclure ton autoloader
 
+// Vérifie si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les valeurs du formulaire
-    $name = $_POST['name'];
-    $specialSkill = $_POST['specialSkill'];
+    // Récupère les données du formulaire
+    $name = htmlspecialchars($_POST['name']); // Sécurisation des entrées
+    $partnerId = intval($_POST['partnerId']); // Convertit en entier
 
-    // Créer une instance de Hero avec l'id en paramètre (initialement null)
-    $hero = new Hero($name, $specialSkill);
+    try {
+        // Initialise le repository des héros
+        $heroRepository = new HeroRepository();
 
-    // Insérer le héros dans la base de données
-    $heroRepository = new HeroRepository();
-    $heroId = $heroRepository->insert($hero);
+        // Crée un nouveau héros avec le partenaire sélectionné
+        $heroId = $heroRepository->insert($name, $partnerId);
 
-    $hero->setId($heroId);
-
-    $_SESSION['hero'] = $hero;
-
-    if ($heroId) {
-        // Une fois inséré, on met à jour l'objet Hero avec l'ID généré
-        $hero->setId($heroId);
-        echo "Le héros a été ajouté avec succès. ID: $heroId";
-
-    } else {
-        echo "Une erreur est survenue lors de l'ajout du héros.";
+        if ($heroId) {
+            echo "Héros créé avec succès ! ID : " . $heroId;
+            // Redirection ou affichage d'un message
+        } else {
+            echo "Erreur lors de la création du héros.";
+        }
+    } catch (Exception $e) {
+        echo "Une erreur est survenue : " . $e->getMessage();
     }
-
-    
-    header("Location: ../../public/fight.php?id=" . $heroId);
+} else {
+    echo "Aucune donnée reçue.";
 }
+header("Location: ../../public/fight.php");

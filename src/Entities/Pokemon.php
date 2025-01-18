@@ -1,22 +1,20 @@
 <?php
 
-abstract class Character {
+abstract class Pokemon {
     protected int $id;
     protected string $name;
     protected int $pv;
     protected int $attack;
     protected int $defense;
-    protected bool $isAlive;
     protected string $imageUrl;
 
-    public function __construct(string $name,int $pv, int $attack, int $defense, string $imageUrl, bool $isAlive = true,string $specialSkill = '')
+    public function __construct(string $name,int $pv, int $attack, int $defense, string $imageUrl)
     {
         $this->name = $name;
         $this->attack = $attack;
         $this->defense = $defense;
         $this->imageUrl = $imageUrl;
         $this->pv = max(0, $pv);
-        $this->isAlive = $this->pv > 0;
     }
 
     public function getId(): int
@@ -54,7 +52,6 @@ abstract class Character {
     public function setPv(int $pv): self
     {
         $this->pv = max(0, $pv);
-        $this->isAlive = $this->pv > 0;
         return $this;
     }
 
@@ -68,22 +65,11 @@ abstract class Character {
         return $this->defense;
     }
 
-    public function getIsAlive()
-    {
-        return $this->isAlive;
-    }
 
     public function takeDamage(int $damage): void
     {
         $damageTaken = max(0, $damage - $this->defense);
         $this->setPv($this->pv - $damageTaken);
-    }
-
-    public function heal(int $amount): void
-    {
-        if ($this->isAlive) {
-            $this->setPv($this->pv + $amount);
-        }
     }
 
     /**

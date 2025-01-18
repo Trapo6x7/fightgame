@@ -9,4 +9,6 @@ abstract class AbstractRepository
     {
         $this->pdo = Database::getConnection();
     }
+
+    
 }

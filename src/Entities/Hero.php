@@ -1,36 +1,57 @@
 <?php
 
-class Hero extends Character
-{
-    private string $specialSkill;
+final class Hero {
+    protected int $id;
+    protected string $name;
+    protected partner $partner;
+    protected bool $isAlive;
 
-    public function __construct(string $name, string $specialSkill, int $pv = 100, int $attack = 50, int $defense = 20, string $imageUrl = "https://i.pinimg.com/736x/74/aa/81/74aa81e3a2526bdbce75fdacfba7a043.jpg",  bool $isAlive = true)
+    public function __construct(string $name, Partner $partner, bool $isAlive)
     {
-        // Appel du constructeur parent avec les arguments appropriés
-        parent::__construct($name, $pv,  $attack, $defense, $imageUrl, $isAlive, $specialSkill);
-        $this->specialSkill = $specialSkill; // Initialisation du skill spécial
+        $this->name = $name;
+        $this->partner = $partner->getId();
+        $this->isAlive = $partner->getPv() > 0;
+
     }
 
-    public function getSpecialSkill(): string
+    public function getId() : int
     {
-        return $this->specialSkill;
+        return $this->id;
     }
 
-    public function useSpecialSkill(): void
+    public function getName() : string
     {
-        if ($this->specialSkill === "buff_attack") {
-            if ($this->attack < 65) {
-                $this->attack = $this->attack + $this->attack * 0.3;
-            }
-        } else if ($this->specialSkill === "heal") {
-            if ($this->pv < 100) {
-                $this->pv += 30;
-            }
-        }
+        return $this->name;
     }
 
-    public function increaseDefense(int $amount): void
+    public function setName($name) : self
     {
-        $this->defense += $amount;  // Augmente la défense de la valeur spécifiée
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPartner() : Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner($partner) : self
+    {
+        $this->partner = $partner;
+
+        return $this;
+    }
+
+    public function getIsAlive() : bool
+    {
+        return $this->isAlive;
+    }
+
+    public function setIsAlive($isAlive) : self
+    {
+        $this->isAlive = $isAlive;
+
+        return $this;
     }
 }

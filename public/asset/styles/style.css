@@ -1,7 +1,7 @@
 body {
-    font-family: 'Press Start 2P', cursive; /* Une police pixelisée, disponible sur Google Fonts */
-    background-color: #0f380f; /* Vert foncé GameBoy */
-    color: #9bbc0f; /* Vert clair GameBoy */
+    background-color: #003300;
+    font-family: 'Press Start 2P', cursive; /* Utilise une police rétro */
+    color: #ccff66;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,9 +24,9 @@ main {
     align-items: center;
 }
 
-#hero{
- height: auto;
- width: 100%;
+#hero {
+    height: auto;
+    width: 100%;
 }
 
 .card {
@@ -68,4 +68,54 @@ input[type="submit"]:hover {
     background-color: #0f380f;
     color: #9bbc0f;
     border: 2px solid #9bbc0f;
+}
+
+/* Ajout des styles pour la section combat */
+.combat-layer {
+    width: 80%;
+    max-width: 600px;
+    border: 4px solid #99cc33;
+    padding: 20px;
+    text-align: center;
+    background-color: #002200;
+    box-shadow: 0 0 15px #66ff66;
+}
+
+.combat-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.combat-area {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    border: 2px solid #66cc66;
+    padding: 10px;
+    background-color: #004400;
+}
+
+.player-info, .enemy-info {
+    width: 45%;
+}
+
+.combat-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+button {
+    font-family: inherit;
+    background-color: #66cc66;
+    color: #002200;
+    border: 2px solid #99cc33;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: #99ff99;
+    color: #003300;
 }

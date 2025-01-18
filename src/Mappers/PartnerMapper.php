@@ -1,7 +1,7 @@
 <?php
 
 
-class HeroMapper implements MapperInterface
+class PartnerMapper implements MapperInterface
 {
     public static function mapToObject(array $data): Hero
     {
@@ -9,8 +9,11 @@ class HeroMapper implements MapperInterface
         return new Hero(
             $data['id'],
             $data['name'],
-            $data['partner'],
-            $data['isAlive']
+            $data['pv'],
+            $data['attack'],
+            $data['defense'],
+            $data['imageUrl'],
+            $data['level']
         );
     }
 }
