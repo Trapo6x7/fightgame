@@ -68,8 +68,7 @@ abstract class Pokemon {
 
     public function takeDamage(int $damage): void
     {
-        $damageTaken = max(0, $damage - $this->defense);
-        $this->setPv($this->pv - $damageTaken);
+        $this->pv = max(0, $this->pv - $damage);
     }
 
     /**

@@ -8,7 +8,6 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
 }
 
 main {
@@ -102,12 +101,16 @@ input[type="submit"]:hover {
 
 .player-info, .enemy-info {
     width: 45%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .combat-actions {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    font-size: 10px;
 }
 
 button {

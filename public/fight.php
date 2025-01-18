@@ -8,6 +8,7 @@ require_once './asset/partials/header.php';
 require_once '../src/process/check_session.php';
 
 $monsterRepository = new MonsterRepository;
+$fightManager = new FightsManager;
 $monster = $monsterRepository->findById(1);
 
 ?>
@@ -19,19 +20,22 @@ $monster = $monsterRepository->findById(1);
         <div class="combat-area">
             <div class="player-info">
                 <img src="<?= $partner->getImageUrl() ?>" alt="" class="imgpoke">
-                <p><span id="pokemon-name"><?= $partner->getName() ?></span></p>
-                <p>PV : <span id="pokemon-hp"><?= $partner->getPv() ?></span></p>
+                <div>                <p><span id="pokemon-name"><?= $partner->getName() ?></span></p>
+                <p>PV : <span id="pokemon-hp"><?= $partner->getPv() ?></span></p></div>
+
             </div>
             <div class="enemy-info">
             <img src="<?= $monster->getImageUrl() ?>" alt="" class="imgpoke">
-                <p><span id="pokemon-name"><?= $monster->getName() ?></span></p>
-                <p>PV : <span id="pokemon-hp"><?= $monster->getPv() ?></span></p>
+            <div>                <p><span id="pokemon-name"><?= $monster->getName() ?></span></p>
+                <p>PV : <span id="pokemon-hp"><?= $monster->getPv() ?></span></p></div>
+
             </div>
         </div>
         <div class="combat-actions">
-            <button id="attack-btn">Attaquer</button>
+            <p><?= $fightManager->startFight($partner, $monster) ?></p>
+            <!-- <button id="attack-btn">Attaquer</button>
             <button id="defend-btn">Défendre</button>
-            <button id="special-btn">Spécial</button>
+            <button id="special-btn">Spécial</button> -->
         </div>
 <?php 
 require_once './asset/partials/footer.php';

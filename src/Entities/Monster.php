@@ -16,6 +16,7 @@ final class Monster extends Pokemon{
         Parent::__construct($name, $pv, $attack, $defense, $imageUrl);
         $this->ferocity = $ferocity;
         $this->difficultyLevel = $difficultyLevel;
+        $this->attack = round($attack + round(($ferocity / 8)));
     }
 
     public function getId() : int
