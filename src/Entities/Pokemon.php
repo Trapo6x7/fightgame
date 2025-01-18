@@ -8,8 +8,9 @@ abstract class Pokemon {
     protected int $defense;
     protected string $imageUrl;
 
-    public function __construct(string $name,int $pv, int $attack, int $defense, string $imageUrl)
+    public function __construct(int $id,string $name,int $pv, int $attack, int $defense, string $imageUrl)
     {
+        $this->id=$id;
         $this->name = $name;
         $this->attack = $attack;
         $this->defense = $defense;

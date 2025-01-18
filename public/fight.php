@@ -10,6 +10,7 @@ require_once '../src/process/check_session.php';
 $monsterRepository = new MonsterRepository;
 $fightManager = new FightsManager;
 $monster = $monsterRepository->findById(1);
+$skillRepository = new SkillRepository();
 
 ?>
     <div class="combat-layer">
@@ -32,7 +33,7 @@ $monster = $monsterRepository->findById(1);
             </div>
         </div>
         <div class="combat-actions">
-            <p><?= $fightManager->startFight($partner, $monster) ?></p>
+            <!-- // $fightManager->startFight($partner, $monster) -->
             <!-- <button id="attack-btn">Attaquer</button>
             <button id="defend-btn">Défendre</button>
             <button id="special-btn">Spécial</button> -->

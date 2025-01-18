@@ -7,7 +7,7 @@ final class Skill
     private int $attack;
     private string $effect;
 
-    public function __construct(int $id, string $name, int $attack, string $effect)
+    public function __construct(int $id, string $name, int $attack, ?string $effect)
     {
         $this->id = $id;
         $this->name = $name;

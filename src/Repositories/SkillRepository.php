@@ -5,8 +5,8 @@ final class SkillRepository extends AbstractRepository {
     public function findByPartnerId(int $partnerId): array
     {
         $query = $this->pdo->prepare("
-            SELECT skills.*
-            FROM skills
+            SELECT skill.*
+            FROM skill
             INNER JOIN partner_skill ON skill.id = partner_skill.id_skill
             WHERE partner_skill.id_partner = :id_partner
         ");
@@ -20,20 +20,39 @@ final class SkillRepository extends AbstractRepository {
 
         return $skills;
     }
+    
+    public function findByMonsterId(int $monsterId): array
+    {
+        $query = $this->pdo->prepare("
+            SELECT skill.*
+            FROM skill
+            INNER JOIN monster_skill ON skill.id = monster_skill.id_skill
+            WHERE monster_skill.id_monster = :id_monster
+        ");
+        $query->execute(['id_monster' => $monsterId]);
+        $results = $query->fetchAll();
 
-    public function insert(Skill $skill): bool
+        $skills = [];
+        foreach ($results as $result) {
+            $skills[] = SkillMapper::mapToObject($result);
+        }
+
+        return $skills;
+    }
+
+    public function insert(string $name, int $attack, ?string $effect): int
     {
         // Prépare la requête d'insertion
         $query = $this->pdo->prepare("
-            INSERT INTO skills (name, attack, effect)
+            INSERT INTO skill (name, attack, effect)
             VALUES (:name, :attack, :effect)
         ");
 
         // Exécute la requête avec les données de la compétence
         return $query->execute([
-            'name' => $skill->getName(),
-            'attack' => $skill->getAttack(),
-            'effect' => $skill->getEffect()
+            'name' => $name,
+            'attack' => $attack,
+            'effect' => $effect,
         ]);
     }
 }

@@ -13,8 +13,11 @@ $monsterRepository = new MonsterRepository;
 // $partner = $partnerRepository->findById($partnerId);
 
 // $skillRepository = new SkillRepository();
+
 // $skills = $skillRepository->findByPartnerId($partner->getId());
+// var_dump($skills);
 // $partner->setSkills($skills);
+
 
 
 // $dracaufeu = new Partner(1, "Dracaufeu", 30, 20, "./asset/imgs/spritedracaufeu.png");

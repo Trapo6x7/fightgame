@@ -5,8 +5,8 @@ class MonsterMapper implements MapperInterface
 {
     public static function mapToObject(array $data): Monster
     {
-        // var_dump($data);
-        // die();
+        $skills = (new SkillRepository())->findByMonsterId($data['id']);
+
         return new Monster(
             $data['id'],          // ID
             $data['name'],        // Nom
@@ -15,7 +15,8 @@ class MonsterMapper implements MapperInterface
             $data['image_url'],   // URL de l'image
             $data['ferocity']  ,      // Niveau
             $data['difficulty_level'],
-            $data['pv'],          // Points de vie
+            $skills,   
+            $data['pv'],      
         );
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-final class Partner extends Pokemon{
-
+class Partner extends Pokemon
+{
     protected int $id;
     protected string $name;
     protected int $pv;
@@ -9,13 +9,13 @@ final class Partner extends Pokemon{
     protected int $defense;
     protected string $imageUrl;
     private int $level;
-    private array $skills;
+    private array $skills; // S'assurer que c'est bien un tableau
 
-    public function __construct(int $id, string $name,int $attack, int $defense, string $imageUrl, array $skills, int $pv = 100,  int $level = 1)
+    public function __construct(int $id, string $name, int $attack, int $defense, string $imageUrl, array $skills, int $pv = 100, int $level = 1)
     {
-        Parent::__construct($name, $pv, $attack, $defense, $imageUrl);
+        Parent::__construct($id, $name, $pv, $attack, $defense, $imageUrl);
+        $this->skills = $skills; // Assigner les compétences
         $this->level = $level;
-        $this->skills= [];
     }
 
     public function getId() : int
