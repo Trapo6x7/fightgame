@@ -1,20 +1,31 @@
 <?php
-session_start();
+
+session_start(); // Démarre ou reprend la session
+
+
 include_once "../utils/autoloader.php";
 require_once './asset/partials/header.php';
+require_once '../src/process/check_session.php';
+
+$monsterRepository = new MonsterRepository;
+$monster = $monsterRepository->findById(1);
+
 ?>
     <div class="combat-layer">
         <div class="combat-header">
             <h1>Combat en cours</h1>
+            <p><?= $heroName ?></p>
         </div>
         <div class="combat-area">
             <div class="player-info">
-                <p>Héros : <span id="player-name">Green</span></p>
-                <p>PV : <span id="player-hp">100</span></p>
+                <img src="<?= $partner->getImageUrl() ?>" alt="" class="imgpoke">
+                <p><span id="pokemon-name"><?= $partner->getName() ?></span></p>
+                <p>PV : <span id="pokemon-hp"><?= $partner->getPv() ?></span></p>
             </div>
             <div class="enemy-info">
-                <p>Ennemi : <span id="enemy-name">Dracaufeu</span></p>
-                <p>PV : <span id="enemy-hp">120</span></p>
+            <img src="<?= $monster->getImageUrl() ?>" alt="" class="imgpoke">
+                <p><span id="pokemon-name"><?= $monster->getName() ?></span></p>
+                <p>PV : <span id="pokemon-hp"><?= $monster->getPv() ?></span></p>
             </div>
         </div>
         <div class="combat-actions">

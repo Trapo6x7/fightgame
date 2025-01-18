@@ -1,17 +1,17 @@
 <?php
 
-class PartnerRepository extends AbstractRepository
+class MonsterRepository extends AbstractRepository
 {
-    protected PartnerMapper $mapper;
+    protected MonsterMapper $mapper;
 
     public function __construct()
     {
         parent::__construct();
-        $this->mapper = new PartnerMapper;
+        $this->mapper = new MonsterMapper;
     }
-    public function findById(int $id): ?Partner
+    public function findById(int $id): ?Monster
     {
-        $query = "SELECT id, name, attack, defense, image_url, pv, level FROM `partner` WHERE id = :id";
+        $query = "SELECT id, name, attack, defense, image_url, pv, ferocity, difficulty_level FROM `monster` WHERE id = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -19,16 +19,16 @@ class PartnerRepository extends AbstractRepository
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
     
         if ($data) {
-            return PartnerMapper::mapToObject($data);
+            return MonsterMapper::mapToObject($data);
         }
     
         return null;
     }
     
-    public function insert(int $pv, string $name, int $attack, int $defense, string $imageUrl, int $level) : int
+    public function insert(int $pv, string $name, int $attack, int $defense, string $imageUrl, int $ferocity, int $difficultyLevel) : int
     {
-        $sql = "INSERT INTO `partner` (`pv`, `name`, `attack`, `defense`, `image_url`, `level`) 
-        VALUES (:pv, :name, :attack, :defense, :image_url, :level)";
+        $sql = "INSERT INTO `monster` (`pv`, `name`, `attack`, `defense`, `image_url`, `ferocity`, `difficulty_level`) 
+        VALUES (:pv, :name, :attack, :defense, :image_url, :ferocity, :difficulty_level)";
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -38,7 +38,8 @@ class PartnerRepository extends AbstractRepository
                 ":attack" => $attack,
                 ":defense" => $defense,
                 ":image_url" => $imageUrl,
-                ":level" => $level,
+                ":ferocity" => $ferocity,
+                ":difficulty_level" => $difficultyLevel,
             ]);
             return (int) $this->pdo->lastInsertId();
         } catch (PDOException $error) {

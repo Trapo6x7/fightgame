@@ -68,7 +68,14 @@ final class Partner extends Pokemon{
 
         return $this;
     }
-
+    
+    /**
+     * Get the value of imageUrl
+     */ 
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
     public function setImageUrl($imageUrl) : self
     {
         $this->imageUrl = $imageUrl;
@@ -87,4 +94,5 @@ final class Partner extends Pokemon{
 
         return $this;
     }
+
 }

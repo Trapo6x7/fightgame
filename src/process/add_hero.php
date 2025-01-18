@@ -1,11 +1,12 @@
 <?php
 session_start();
+
 require_once '../../utils/autoloader.php'; // Inclure ton autoloader
 
 // Vérifie si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupère les données du formulaire
-    $name = htmlspecialchars($_POST['name']); // Sécurisation des entrées
+    $name = htmlspecialchars(trim($_POST['name'])); // Sécurisation des entrées
     $partnerId = intval($_POST['partnerId']); // Convertit en entier
 
     try {
@@ -16,8 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $heroId = $heroRepository->insert($name, $partnerId);
 
         if ($heroId) {
-            echo "Héros créé avec succès ! ID : " . $heroId;
-            // Redirection ou affichage d'un message
+            // Stocke les informations dans la session
+            $_SESSION['hero_name'] = $name;
+            $_SESSION['partner_id'] = $partnerId;
+
+            // Redirection vers la page de combat
+            header("Location: ../../public/fight.php?id=" . $heroId);
+            exit;
         } else {
             echo "Erreur lors de la création du héros.";
         }
@@ -27,4 +33,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "Aucune donnée reçue.";
 }
-header("Location: ../../public/fight.php");
