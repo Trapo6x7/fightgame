@@ -13,8 +13,9 @@ $monster = $monsterRepository->findById(1);
 $skillRepository = new SkillRepository();
 
 $skills = $partner->getSkills();
-$monsterSkills = $monster->getSkills();
 
+$skillsMonster = $skillRepository->findByMonsterId(1);
+$monster->setSkills($skillsMonster);
 ?>
 <div class="combat-layer">
     <div class="combat-header">
@@ -50,7 +51,7 @@ $monsterSkills = $monster->getSkills();
         <form action="../process/logout.php" method="post">
             <button id=logout> Fuite </button>
         </form>
-
+<p><?= $fightManager->startFight($partner, $monster) ?></p>
     </div>
     <?php
     require_once './asset/partials/footer.php';

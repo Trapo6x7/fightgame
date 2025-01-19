@@ -121,4 +121,39 @@ final class Monster extends Pokemon{
 
         return $this;
     }
+
+    public function useRandomSkill(Partner $enemy): void
+{
+    // Vérifier si le monstre a des compétences
+    if (empty($this->getSkills())) {
+        echo $this->getName() . " n'a pas de compétences disponibles.\n";
+        return;
+    }
+
+    // Choisir un skill aléatoire
+    $skills = $this->getSkills();
+    $randomSkill = $skills[array_rand($skills)];
+
+    // Appliquer l'effet du skill
+    $name = $randomSkill->getName();
+
+    if ($name === 'Copie') {
+        // Copie l'attaque de l'ennemi avec 20% de réduction
+        $copiedAttack = $enemy->getAttack();
+        $damage = max(0, $copiedAttack - $this->getDefense());
+        $enemy->setPv($enemy->getPv() - $damage);
+        echo $this->getName() . " copie l'attaque de " . $enemy->getName() . " avec " . $randomSkill->getName() . " pour " . $damage . " dégâts.\n";
+    } elseif ($name === 'Soin') {
+        // Soigne le monstre de 20 PV
+        $this->setPv($this->getPv() + 20);
+        echo $this->getName() . " utilise " . $randomSkill->getName() . " pour se soigner de 20 PV.\n";
+    } else {
+        // Compétence d'attaque classique
+        $damage = max(0, $randomSkill->getAttack() - $enemy->getDefense());
+        $enemy->setPv($enemy->getPv() - $damage);
+        echo $this->getName() . " attaque " . $enemy->getName() . " avec " . $randomSkill->getName() . " pour " . $damage . " dégâts.\n";
+    }
 }
+
+}
+

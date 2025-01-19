@@ -18,79 +18,79 @@ class Partner extends Pokemon
         $this->level = $level;
     }
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName($name) : self
+    public function setName($name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getPv() : int
+    public function getPv(): int
     {
         return $this->pv;
     }
 
-    public function setPv($pv) : self
+    public function setPv($pv): self
     {
         $this->pv = $pv;
 
         return $this;
     }
 
-    public function getAttack() : int
+    public function getAttack(): int
     {
         return $this->attack;
     }
 
-    public function setAttack($attack) : self
+    public function setAttack($attack): self
     {
         $this->attack = $attack;
 
         return $this;
     }
 
-    public function getDefense() : int
+    public function getDefense(): int
     {
         return $this->defense;
     }
 
-    public function setDefense($defense) : self
+    public function setDefense($defense): self
     {
         $this->defense = $defense;
 
         return $this;
     }
-    
+
     /**
      * Get the value of imageUrl
-     */ 
+     */
     public function getImageUrl()
     {
         return $this->imageUrl;
     }
-    public function setImageUrl($imageUrl) : self
+    public function setImageUrl(string $imageUrl): self
     {
         $this->imageUrl = $imageUrl;
 
         return $this;
     }
 
-    public function getLevel() : int
+    public function getLevel(): int
     {
         return $this->level;
     }
 
-    public function setLevel($level) : self
+    public function setLevel(int $level): self
     {
         $this->level = $level;
 
@@ -98,15 +98,38 @@ class Partner extends Pokemon
     }
 
 
-    public function getSkills() : array
+    public function getSkills(): array
     {
         return $this->skills;
     }
 
-    public function setSkills($skills) : self
+    public function setSkills($skills): self
     {
         $this->skills = $skills;
 
         return $this;
+    }
+
+    public function attackEnemy(Monster $enemy, Skill $skill): void
+    {
+        // Vérifie l'effet de la compétence
+        $name = $skill->getName();
+        
+        if ($name === 'copie') {
+            // Copie l'attaque de l'ennemi avec 20% de réduction
+            $copiedAttack = $enemy->getAttack() * 0.8; // Réduit l'attaque de 20%
+            $damage = max(0, $copiedAttack - $this->getDefense()); // Applique la défense du partenaire
+            $enemy->setPv($enemy->getPv() - $damage);
+            echo $this->getName() . " copie l'attaque de " . $enemy->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+        } elseif ($name === 'soin') {
+            // Soigne le partenaire de 20 PV
+            $this->setPv($this->getPv() + 20);
+            echo $this->getName() . " utilise " . $skill->getName() . " pour se soigner de 20 PV.\n";
+        } else {
+            // Si l'effet est autre (attaque directe par exemple)
+            $damage = max(0, $skill->getAttack() - $enemy->getDefense()); // Applique la défense de l'ennemi
+            $enemy->setPv($enemy->getPv() - $damage);
+            echo $this->getName() . " attaque " . $enemy->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+        }
     }
 }
