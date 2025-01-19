@@ -2,6 +2,32 @@
 
 final class SkillRepository extends AbstractRepository {
 
+    protected SkillMapper $mapper;
+    
+    public function findById(int $id): ?Skill
+    {
+        $sql = "SELECT * FROM `skill` WHERE id = :id";
+
+        try {
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ":id" => $id
+            ]);
+            $skillData = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $error) {
+            echo "Erreur lors de la requete : " . $error->getMessage();
+        }
+
+        $skill = $this->mapper->mapToObject($skillData);
+
+        if ($skill) {
+            return $skill;
+        } else {
+            return null;
+        }
+    }
+
     public function findByPartnerId(int $partnerId): array
     {
         $query = $this->pdo->prepare("
