@@ -5,7 +5,7 @@ session_start(); // Démarre ou reprend la session
 
 include_once "../utils/autoloader.php";
 require_once './asset/partials/header.php';
-require_once '../src/process/check_session.php';
+require_once '../process/check_session.php';
 
 $monsterRepository = new MonsterRepository;
 $fightManager = new FightsManager;
@@ -47,7 +47,7 @@ $monsterSkills = $monster->getSkills();
         <?php
         }
         ?>
-        <form action="../src/process/logout.php" method="post">
+        <form action="../process/logout.php" method="post">
             <button id=logout> Fuite </button>
         </form>
 

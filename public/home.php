@@ -12,7 +12,7 @@ require_once './asset/partials/header.php';
 </div>
 <main>
     <section>
-        <form action="../src/process/add_hero.php" method="POST" class="card">
+        <form action="../process/add_hero.php" method="POST" class="card">
             <label for="name">Comment tu t'appelles?</label>
             <input type="text" id="name" name="name" required><br><br>
             <label for="partnerId">Choisis ton partenaire:</label>

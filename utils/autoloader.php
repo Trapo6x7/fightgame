@@ -15,18 +15,18 @@ spl_autoload_register(function ($className) {
         case substr($className, -6) === 'Mapper':
             $directory = 'Mappers';
             break;
-        case substr($className, -9) === 'Interface':
-                $directory = 'Interfaces';
-                break;
-        case substr($className, -10) === 'Controller':
-                $directory = 'Controllers';
-                break;
+        case substr($className, -8) === 'Contract':
+            $directory = 'Interfaces';
+            break;
         case substr($className, -7) === 'Service':
-                $directory = 'Services';
-                break;
-        case substr($className, -8) === 'Validator':
-                $directory = 'Services/Validators';
-                break;
+            $directory = 'Services';
+            break;
+        case substr($className, -5) === 'Trait':
+            $directory = 'Traits';
+            break;
+        case substr($className, -9) === 'Validator':
+            $directory = 'Services/Validators';
+            break;
         default:
             $directory = 'Entities';
             break;

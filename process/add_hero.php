@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../../utils/autoloader.php'; // Inclure ton autoloader
+require_once '../utils/autoloader.php'; // Inclure ton autoloader
 
 // Initialiser le service de validation
 $validator = new ValidatorService();
@@ -15,7 +15,7 @@ $validator->addStrategy('partnerId', new RequiredValidator()); // Le partnerId d
 $validator->addStrategy('partnerId', new IntegerValidator()); // Le partnerId doit être un nombre
 
 if (!$validator->validate($_POST)) {
-    header('location: ../../public/home.php');
+    header('location: ../public/home.php');
     return;
 }
 // Récupère et nettoie les données du formulaire
@@ -35,7 +35,7 @@ if ($heroId) {
     $_SESSION['partner_id'] = $data['partnerId'];
 
     // Redirection vers la page de combat
-    header("Location: ../../public/fight.php?id=" . $heroId);
+    header("Location: ../public/fight.php?id=" . $heroId);
     exit;
 } else {
     echo "Erreur lors de la création du héros.";
