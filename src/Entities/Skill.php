@@ -5,14 +5,14 @@ final class Skill
     private int $id;
     private string $name;
     private int $attack;
-    private string $effect;
+    private ?string $effect;
 
-    public function __construct(int $id, string $name, int $attack, ?string $effect)
+    public function __construct(int $id, string $name, int $attack, ?string $effect = null)
     {
         $this->id = $id;
         $this->name = $name;
         $this->attack = $attack;
-        $this->effect = $effect;
+        $this->effect = $effect ?? null;
     }
 
     public function getId() : int
@@ -20,7 +20,7 @@ final class Skill
         return $this->id;
     }
 
-    public function getName() : int
+    public function getName() : string
     {
         return $this->name;
     }

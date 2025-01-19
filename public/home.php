@@ -5,37 +5,6 @@ $_SESSION = [];
 include_once "../utils/autoloader.php";
 require_once './asset/partials/header.php';
 
-
-$parterRepository = new PartnerRepository;
-$monsterRepository = new MonsterRepository;
-
-// $partnerRepository = new PartnerRepository();
-// $partner = $partnerRepository->findById($partnerId);
-
-// $skillRepository = new SkillRepository();
-
-// $skills = $skillRepository->findByPartnerId($partner->getId());
-// var_dump($skills);
-// $partner->setSkills($skills);
-
-
-
-// $dracaufeu = new Partner(1, "Dracaufeu", 30, 20, "./asset/imgs/spritedracaufeu.png");
-// $tortank = new Partner(2, "Tortank", 20, 30, "./asset/imgs/spritetortank.png");
-// $florizarre = new Partner(3, "Florizarre", 25, 25, "./asset/imgs/spriteflorizarre.png");
-// $monsters=[
-//     $ditto = new Monster(1, "Metamorph", 15 , 15, "./asset/imgs/spriteditto", 15 , 1),
-// $arbok = new Monster(100, "Arbok", 30 , 20, "./asset/imgs/spritearbok", 30 , 2),
-// $ectoplasma = new Monster(100, "Ectoplasma", 40, 30, "./asset/imgs/spritegengar", 50 , 3),
-// $mewtwo = new Monster(100, "Mewtwo", 50 , 50, "./asset/imgs/spritemewtwo", 75 , 4),
-// $missingNo = new Monster(100, "MissingNo", 70 , 60, "./asset/imgs/spriteboss", 100 , 5),
-// ];
-
-// $monsterRepository->insert(100, "Metamorph", 15 , 15, "./asset/imgs/spriteditto", 15 , 1);
-// $monsterRepository->insert(100, "Arbok", 30 , 20, "./asset/imgs/spritearbok", 30 , 2);
-// $monsterRepository->insert(100, "Ectoplasma", 40, 30, "./asset/imgs/spritegengar", 50 , 3);
-// $monsterRepository->insert(100, "Mewtwo", 50 , 50, "./asset/imgs/spritemewtwo", 75 , 4);
-// $monsterRepository->insert(100, "MissingNo", 70 , 60, "./asset/imgs/spriteboss", 100 , 5);
 ?>
 
 <div>

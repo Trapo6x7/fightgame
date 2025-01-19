@@ -12,31 +12,46 @@ $fightManager = new FightsManager;
 $monster = $monsterRepository->findById(1);
 $skillRepository = new SkillRepository();
 
+$skills = $partner->getSkills();
+
 ?>
-    <div class="combat-layer">
-        <div class="combat-header">
-            <h1>Combat en cours</h1>
-            <p><?= $heroName ?></p>
-        </div>
-        <div class="combat-area">
-            <div class="player-info">
-                <img src="<?= $partner->getImageUrl() ?>" alt="" class="imgpoke">
-                <div>                <p><span id="pokemon-name"><?= $partner->getName() ?></span></p>
-                <p>PV : <span id="pokemon-hp"><?= $partner->getPv() ?></span></p></div>
-
+<div class="combat-layer">
+    <div class="combat-header">
+        <h1>Combat en cours</h1>
+        <p><?= $heroName ?></p>
+    </div>
+    <div class="combat-area">
+        <div class="player-info">
+            <img src="<?= $partner->getImageUrl() ?>" alt="" class="imgpoke">
+            <div>
+                <p><span id="pokemon-name"><?= $partner->getName() ?></span></p>
+                <p>PV : <span id="pokemon-hp"><?= $partner->getPv() ?></span></p>
             </div>
-            <div class="enemy-info">
+
+        </div>
+        <div class="enemy-info">
             <img src="<?= $monster->getImageUrl() ?>" alt="" class="imgpoke">
-            <div>                <p><span id="pokemon-name"><?= $monster->getName() ?></span></p>
-                <p>PV : <span id="pokemon-hp"><?= $monster->getPv() ?></span></p></div>
-
+            <div>
+                <p><span id="pokemon-name"><?= $monster->getName() ?></span></p>
+                <p>PV : <span id="pokemon-hp"><?= $monster->getPv() ?></span></p>
             </div>
+
         </div>
-        <div class="combat-actions">
-            <!-- // $fightManager->startFight($partner, $monster) -->
-            <!-- <button id="attack-btn">Attaquer</button>
+    </div>
+    <div class="combat-actions">
+        <?php
+        foreach ($skills as $skill) {
+        ?>
+            <button id="attack"><?= $skill->getname() ?></button>
+        <?php
+        }
+        ?>
+        <form action="../src/process/logout.php" method="post">
+            <button id=logout> Fuite </button>
+        </form>
+        <!-- <button id="attack-btn">Attaquer</button>
             <button id="defend-btn">Défendre</button>
             <button id="special-btn">Spécial</button> -->
-        </div>
-<?php 
-require_once './asset/partials/footer.php';
+    </div>
+    <?php
+    require_once './asset/partials/footer.php';

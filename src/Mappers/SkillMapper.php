@@ -8,7 +8,7 @@ class SkillMapper implements MapperInterface
             $data['id'],
             $data['name'],
             $data['attack'],
-            $data['effect']
+            $data['effect'] 
         );
     }
 }
