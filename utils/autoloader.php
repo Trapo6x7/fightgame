@@ -21,6 +21,12 @@ spl_autoload_register(function ($className) {
         case substr($className, -10) === 'Controller':
                 $directory = 'Controllers';
                 break;
+        case substr($className, -7) === 'Service':
+                $directory = 'Services';
+                break;
+        case substr($className, -8) === 'Validator':
+                $directory = 'Services/Validators';
+                break;
         default:
             $directory = 'Entities';
             break;
