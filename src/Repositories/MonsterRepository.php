@@ -15,49 +15,52 @@ class MonsterRepository extends AbstractRepository
         $query = "
             SELECT 
                 m.id, m.name, m.attack, m.defense, m.image_url, m.pv, m.ferocity, m.difficulty_level,
-                s.id AS skill_id, s.name AS skill_name, s.attack AS skill_attack, s.effect AS skill_effect
+                GROUP_CONCAT(s.id) AS skill_ids,
+                GROUP_CONCAT(s.name) AS skill_names,
+                GROUP_CONCAT(s.attack) AS skill_attacks,
+                GROUP_CONCAT(s.effect) AS skill_effects
             FROM monster m
             LEFT JOIN monster_skill ms ON m.id = ms.id_monster
             LEFT JOIN skill s ON ms.id_skill = s.id
             WHERE m.id = :id
+            GROUP BY m.id
         ";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if (!$results) {
-            return null;
-        }
-
-        // Map les compétences
-        $skills = [];
-        foreach ($results as $row) {
-            if (!empty($row['skill_id'])) {
-                $skills[] = new Skill(
-                    $row['skill_id'],
-                    $row['skill_name'],
-                    $row['skill_attack'],
-                    $row['skill_effect']
-                );
+    
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($data) {
+            // Mapper les données du monstre
+            $monster = MonsterMapper::mapToObject($data);
+    
+            // Mapper les compétences
+            if (!empty($data['skill_ids'])) {
+                $skillIds = explode(',', $data['skill_ids']);
+                $skillNames = explode(',', $data['skill_names']);
+                $skillAttacks = explode(',', $data['skill_attacks']);
+                $skillEffects = explode(',', $data['skill_effects']);
+    
+                $skills = [];
+                for ($i = 0; $i < count($skillIds); $i++) {
+                    $skills[] = new Skill(
+                        (int)$skillIds[$i],
+                        $skillNames[$i],
+                        (int)$skillAttacks[$i],
+                        $skillEffects[$i]
+                    );
+                }
+    
+                $monster->setSkills($skills);
             }
+    
+            return $monster;
         }
-
-        // Map le monstre
-        $monsterData = $results[0]; // Les données du monstre sont identiques sur chaque ligne
-        return new Monster(
-            $monsterData['id'],
-            $monsterData['name'],
-            $monsterData['attack'],
-            $monsterData['defense'],
-            $monsterData['image_url'],
-            $monsterData['pv'],
-            $monsterData['ferocity'],
-            $skills, 
-            $monsterData['difficulty_level'],
-        );
+    
+        return null;
     }
+    
 
     public function insert(
         int $pv,
