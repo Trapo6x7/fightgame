@@ -13,54 +13,27 @@ class MonsterRepository extends AbstractRepository
     public function findById(int $id): ?Monster
     {
         $query = "
-            SELECT 
-                m.id, m.name, m.attack, m.defense, m.image_url, m.pv, m.ferocity, m.difficulty_level,
-                GROUP_CONCAT(s.id) AS skill_ids,
-                GROUP_CONCAT(s.name) AS skill_names,
-                GROUP_CONCAT(s.attack) AS skill_attacks,
-                GROUP_CONCAT(s.effect) AS skill_effects
-            FROM monster m
-            LEFT JOIN monster_skill ms ON m.id = ms.id_monster
-            LEFT JOIN skill s ON ms.id_skill = s.id
+            SELECT m.id, m.name, m.attack, m.defense, m.image_url, m.ferocity, m.difficulty_level, m.pv,
+                   GROUP_CONCAT(s.id) AS skill_ids, GROUP_CONCAT(s.name) AS skill_names, 
+                   GROUP_CONCAT(s.attack) AS skill_attacks, GROUP_CONCAT(s.effect) AS skill_effects
+            FROM `monster` m
+            LEFT JOIN `monster_skill` ms ON m.id = ms.id_monster
+            LEFT JOIN `skill` s ON ms.id_skill = s.id
             WHERE m.id = :id
             GROUP BY m.id
         ";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-    
+
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
         if ($data) {
-            // Mapper les données du monstre
-            $monster = MonsterMapper::mapToObject($data);
-    
-            // Mapper les compétences
-            if (!empty($data['skill_ids'])) {
-                $skillIds = explode(',', $data['skill_ids']);
-                $skillNames = explode(',', $data['skill_names']);
-                $skillAttacks = explode(',', $data['skill_attacks']);
-                $skillEffects = explode(',', $data['skill_effects']);
-    
-                $skills = [];
-                for ($i = 0; $i < count($skillIds); $i++) {
-                    $skills[] = new Skill(
-                        (int)$skillIds[$i],
-                        $skillNames[$i],
-                        (int)$skillAttacks[$i],
-                        $skillEffects[$i]
-                    );
-                }
-    
-                $monster->setSkills($skills);
-            }
-    
-            return $monster;
+            return MonsterMapper::mapToObject($data);
         }
-    
+
         return null;
     }
-    
 
     public function insert(
         int $pv,

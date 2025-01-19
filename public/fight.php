@@ -14,7 +14,7 @@ $skillRepository = new SkillRepository();
 
 $skills = $partner->getSkills();
 $monsterSkills = $monster->getSkills();
-var_dump($monsterSkills);
+
 ?>
 <div class="combat-layer">
     <div class="combat-header">
