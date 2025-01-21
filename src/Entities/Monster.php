@@ -1,6 +1,7 @@
 <?php
 
-final class Monster extends Pokemon{
+final class Monster extends Pokemon
+{
 
     protected int $id;
     protected string $name;

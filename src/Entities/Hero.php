@@ -1,6 +1,7 @@
 <?php
 
-final class Hero {
+final class Hero
+ {
     protected int $id;
     protected string $name;
     protected partner $partner;

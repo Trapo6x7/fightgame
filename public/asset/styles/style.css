@@ -16,7 +16,6 @@ main {
     background-color: #0f380f; /* Même vert foncé pour un effet immersif */
     border: 4px solid #9bbc0f; /* Bordures pixelisées */
     padding: 20px;
-    box-shadow: 0 0 10px #9bbc0f;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -41,7 +40,11 @@ main {
     border: 2px solid #9bbc0f;
     padding: 15px;
     width: 100%;
-    box-shadow: 0 0 8px #9bbc0f;
+}
+
+form{
+    display: flex;
+    gap: 18%;
 }
 
 label, input, select, button{
@@ -82,7 +85,6 @@ input[type="submit"]:hover {
     padding: 20px;
     text-align: center;
     background-color: #002200;
-    box-shadow: 0 0 15px #66ff66;
 }
 
 .combat-header h1 {
