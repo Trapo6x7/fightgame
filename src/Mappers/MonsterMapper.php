@@ -1,7 +1,7 @@
 <?php
 
 
-class MonsterMapper implements MapperInterface
+class MonsterMapper implements MapperContract
 {
     public static function mapToObject(array $data): Monster
     {

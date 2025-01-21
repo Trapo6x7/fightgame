@@ -1,23 +1,39 @@
 <?php
-session_start(); 
-
-include_once "../utils/autoloader.php";
+require_once "../utils/autoloader.php";
 require_once './asset/partials/header.php';
-require_once '../process/check_session.php';
+
+session_start();
+
+
+if(!isset($_SESSION['hero']))
+{
+    header("Location: ./home.php");
+    exit;
+}
+
+/**
+ * @var Hero $hero
+ */
+$hero = $_SESSION['hero'];
+
+$partner = $hero->getPartner();
+$skills = $partner->getSkills();
 
 $monsterRepository = new MonsterRepository;
-$fightManager = new FightsManager;
+
 $monster = $monsterRepository->findById(1);
+
 $skillRepository = new SkillRepository();
-$skills = $partner->getSkills();
 $skillsMonster = $skillRepository->findByMonsterId(1);
 $monster->setSkills($skillsMonster);
+
+$_SESSION['monster'] = $monster;
 ?>
 
 <div class="combat-layer">
     <div class="combat-header">
         <h1>Combat en cours</h1>
-        <p><?= $heroName ?> / Niveau <?= $partner->getLevel() ?></p>
+        <p><?= $hero->getName() ?> / Niveau <?= $partner->getLevel() ?></p>
     </div>
     <div class="combat-area">
         <div class="player-info">
@@ -38,16 +54,19 @@ $monster->setSkills($skillsMonster);
         </div>
     </div>
     <div class="combat-actions">
-            <?php
-            foreach ($skills as $skill) {
-            ?>
-                <button id="attack" class="fetchAttack" data-skill="<?= $skill->getname() ?>">
-                    <?= $skill->getname() ?>
-                </button>
-            <?php
-            }
-            ?>
-    
+        <?php
+        /**
+         * @var Skill $skill
+         */
+        foreach ($skills as $skill) {
+        ?>
+            <button class="fetchAttack" data-skill="<?= $skill->getName() ?>">
+                <?= $skill->getName() ?>
+            </button>
+        <?php
+        }
+        ?>
+
         <form action="../process/logout.php" method="post">
             <button id=logout> Fuite </button>
         </form>
@@ -55,4 +74,3 @@ $monster->setSkills($skillsMonster);
     </div>
     <?php
     require_once './asset/partials/footer.php';
-  

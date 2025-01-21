@@ -1,37 +1,25 @@
-const attackButtons = document.querySelectorAll(".fetchAttack");
-
-attackButtons.forEach((button) => {
+document.querySelectorAll(".fetchAttack").forEach((button) => {
   button.addEventListener("click", (event) => {
     handleAttack(event);
   });
 });
 
-function handleAttack(event) {
-    return new Promise ((event) => {  
-        console.log("hello")
+async function handleAttack(event) {
+  await fetch("../process/processAttack.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      action: event.target.dataset.skill,
+    }),
+  })
+    .then((body) => {
+      console.log(body);
+      document.getElementById("monster-hp").innerHTML = body.monsterHp;
+      document.getElementById("partner-hp").innerHTML = body.partnerHp;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
 }
-
-fetch(
-  "../process/processAttack.php",
-  {
-    method: "POST",
-  },
-  {
-    headers: {
-      "content-type": "json",
-      accept: "json",
-    },
-  },
-  {
-    body: JSON.stringify({}),
-  }
-).then((Response) => {
-    return Response.json;
-})
-.then((body) => {
-
-})
-.catch((event) => {
-button.innerHtmml = "L'attaque n'a pas pu etre lancé!";
-});

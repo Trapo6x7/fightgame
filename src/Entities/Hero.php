@@ -2,16 +2,17 @@
 
 final class Hero
  {
-    protected int $id;
-    protected string $name;
-    protected partner $partner;
-    protected bool $isAlive;
+    private int $id;
+    private string $name;
+    private Partner $partner;
+    private bool $isAlive;
 
-    public function __construct(string $name, Partner $partner, bool $isAlive)
+    public function __construct(int $id, string $name, Partner $partner, bool $isAlive = true)
     {
+        $this->id = $id;
         $this->name = $name;
-        $this->partner = $partner->getId();
-        $this->isAlive = $partner->getPv() > 0;
+        $this->partner = $partner;
+        $this->isAlive = $isAlive;
 
     }
 

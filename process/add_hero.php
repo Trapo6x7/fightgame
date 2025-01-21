@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require_once '../utils/autoloader.php'; // Inclure ton autoloader
 
 // Initialiser le service de validation
@@ -21,21 +19,27 @@ if (!$validator->validate($_POST)) {
 // Récupère et nettoie les données du formulaire
 $data = $validator->sanitize($_POST);
 
+session_start();
 
+$partnerRepo = new PartnerRepository();
+
+$partner = $partnerRepo->findById($data['partnerId']);
 
 // Initialise le repository des héros
 $heroRepository = new HeroRepository();
 
+$hero = new Hero(0, $data['name'], $partner);
+
 // Crée un nouveau héros avec le partenaire sélectionné
-$heroId = $heroRepository->insert($data['name'], $data['partnerId']);
+$hero = $heroRepository->insert($hero);
 
-if ($heroId) {
+if ($hero) {
     // Stocke les informations dans la session
-    $_SESSION['hero_name'] = $data['name'];
-    $_SESSION['partner_id'] = $data['partnerId'];
-
+    $_SESSION['hero'] = $hero;
+    // var_dump($_SESSION);
+    // die();
     // Redirection vers la page de combat
-    header("Location: ../public/fight.php?id=" . $heroId);
+    header("Location: ../public/fight.php");
     exit;
 } else {
     echo "Erreur lors de la création du héros.";

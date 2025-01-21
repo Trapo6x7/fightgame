@@ -1,8 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../Interfaces/MapperInterface.php'; // Inclure l'interface
 
-class PartnerMapper implements MapperInterface
+class PartnerMapper implements MapperContract
 {
    
 

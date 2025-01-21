@@ -1,9 +1,10 @@
 <?php
 
-final class SkillRepository extends AbstractRepository {
+final class SkillRepository extends AbstractRepository
+{
 
     protected SkillMapper $mapper;
-    
+
     public function findById(int $id): ?Skill
     {
         $sql = "SELECT * FROM `skill` WHERE id = :id";
@@ -46,7 +47,7 @@ final class SkillRepository extends AbstractRepository {
 
         return $skills;
     }
-    
+
     public function findByMonsterId(int $monsterId): array
     {
         $query = $this->pdo->prepare("
@@ -64,6 +65,21 @@ final class SkillRepository extends AbstractRepository {
         }
 
         return $skills;
+    }
+
+    public function findByName(string $skillName): Skill
+    {
+        $query = $this->pdo->prepare("
+        SELECT skill.*
+        FROM skill
+        WHERE skill.name = :skill_name
+    ");
+        $query->execute(['skill_name' => $skillName]);
+        $result = $query->fetchAll();
+
+        $skill = SkillMapper::mapToObject($result);
+
+        return $skill;
     }
 
     public function insert(string $name, int $attack, ?string $effect): int

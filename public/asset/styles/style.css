@@ -1,5 +1,6 @@
 body {
-    background-color: #003300;
+    background-image: url('../imgs/backgroundimage.png');
+    object-fit:cover;
     font-family: 'Press Start 2P', cursive; /* Utilise une police rétro */
     color: #ccff66;
     display: flex;

@@ -1,6 +1,6 @@
 <?php
 
-class SkillMapper implements MapperInterface
+class SkillMapper implements MapperContract
 {
     public static function mapToObject(array $data): Skill
     {

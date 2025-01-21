@@ -1,5 +1,5 @@
 <?php
 
-interface MapperInterface {
+interface MapperContract {
     public static function mapToObject(array $data);
 }

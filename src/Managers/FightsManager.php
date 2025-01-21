@@ -18,7 +18,6 @@ class FightsManager
 
     public function startFight(Partner $partner, Monster $monster): void
     {
-        $monsterRepository = new MonsterRepository;
 
         echo "<br> Le combat commence entre {$partner->getName()} et {$monster->getName()} !";
 
@@ -32,7 +31,7 @@ class FightsManager
                 $partner->getLevel() + 1;
                 ($partner->getAttack() + 10) * $monster->getDifficultyLevel();
                 ($partner->getDefense() + 10) * $monster->getDifficultyLevel();;
-                $monsterRepository->findById($monster->getId() + 1);
+                $this->monsterRepository->findById($monster->getId() + 1);
                 break;
             }
 
@@ -59,6 +58,31 @@ class FightsManager
             echo "<br> {$attacker->getName()} utilise {$skill->getName()} et inflige $damage dégâts à {$defender->getName()} !\n";
             echo "<br> {$defender->getName()} a maintenant {$defender->getPv()} PV.\n";
         } elseif ($attacker instanceof Monster) {
+            // Si c'est un monstre, il utilise une compétence aléatoire.
+            $attacker->useRandomSkill($defender);
+        }
+    }
+
+    public function useSkill(Skill $skill, Pokemon $attacker, Pokemon $defender)
+    {
+        if ($skill === 'copie') {
+            // Copie l'attaque de l'ennemi avec 20% de réduction
+            $copiedAttack = $defender->getAttack() * 0.8;
+            $damage = max(0, $copiedAttack - $defender->getDefense());
+            $defender->setPv($defender->getPv() - $damage);
+            echo $attacker->getName() . " copie l'attaque de " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+        } elseif ($skill === 'soin') {
+            // Soigne le partenaire de 20 PV
+            $attacker->setPv($attacker->getPv() + 20);
+            echo $attacker->getName() . " utilise " . $skill->getName() . " pour se soigner de 20 PV.\n";
+        } else {
+            // Si l'effet est autre (attaque directe par exemple)
+            $damage = max(0, $skill->getAttack() - $defender->getDefense()); // Applique la défense de l'ennemi
+            $defender->setPv($defender->getPv() - $damage);
+            echo $attacker->getName() . " attaque " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+        }
+
+        if ($attacker instanceof Monster) {
             // Si c'est un monstre, il utilise une compétence aléatoire.
             $attacker->useRandomSkill($defender);
         }

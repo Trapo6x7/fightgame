@@ -3,19 +3,19 @@
 final class Monster extends Pokemon
 {
 
-    protected int $id;
-    protected string $name;
-    protected int $pv;
+    // protected int $id;
+    // protected string $name;
+    // protected int $pv;
     protected int $attack;
-    protected int $defense;
-    protected string $imageUrl;
+    // protected int $defense;
+    // protected string $imageUrl;
     private int $ferocity;
     private int $difficultyLevel;
     private array $skills;
 
     public function __construct(int $id, string $name,int $attack, int $defense, string $imageUrl, int $ferocity, int $difficultyLevel, array $skill, int $pv = 100)
     {
-        Parent::__construct($id,$name, $pv, $attack, $defense, $imageUrl);
+        Parent::__construct($id, $name, $pv, $attack, $defense, $imageUrl);
         $this->ferocity = $ferocity;
         $this->difficultyLevel = $difficultyLevel;
         $this->attack = round($attack + round(($ferocity / 8)));

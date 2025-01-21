@@ -2,12 +2,12 @@
 
 class Partner extends Pokemon
 {
-    protected int $id;
-    protected string $name;
-    protected int $pv;
-    protected int $attack;
-    protected int $defense;
-    protected string $imageUrl;
+    // private int $id;
+    // private string $name;
+    // private int $pv;
+    // private int $attack;
+    // private int $defense;
+    // private string $imageUrl;
     private int $level;
     private array $skills; // S'assurer que c'est bien un tableau
 
