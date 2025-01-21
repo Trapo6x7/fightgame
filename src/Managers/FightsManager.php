@@ -63,26 +63,31 @@ class FightsManager
         }
     }
 
-    public function useSkill(Skill $skill, Pokemon $attacker, Pokemon $defender)
+    public function useSkill(int $skillId, Pokemon $attacker, Pokemon $defender)
     {
-        if ($skill === 'copie') {
+        $skillRepo = new SkillRepository;
+        $skill = $skillRepo->findById($skillId);
+
+        if ($attacker instanceof Partner) {
+
+        if ($skillId === 8) {
             // Copie l'attaque de l'ennemi avec 20% de réduction
             $copiedAttack = $defender->getAttack() * 0.8;
             $damage = max(0, $copiedAttack - $defender->getDefense());
             $defender->setPv($defender->getPv() - $damage);
-            echo $attacker->getName() . " copie l'attaque de " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
-        } elseif ($skill === 'soin') {
+            // echo $attacker->getName() . " copie l'attaque de " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+        } elseif ($skillId === 5) {
             // Soigne le partenaire de 20 PV
             $attacker->setPv($attacker->getPv() + 20);
-            echo $attacker->getName() . " utilise " . $skill->getName() . " pour se soigner de 20 PV.\n";
+            // echo $attacker->getName() . " utilise " . $skill->getName() . " pour se soigner de 20 PV.\n";
         } else {
             // Si l'effet est autre (attaque directe par exemple)
             $damage = max(0, $skill->getAttack() - $defender->getDefense()); // Applique la défense de l'ennemi
             $defender->setPv($defender->getPv() - $damage);
-            echo $attacker->getName() . " attaque " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+            // echo $attacker->getName() . " attaque " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
         }
-
-        if ($attacker instanceof Monster) {
+    }
+       else if ($attacker instanceof Monster) {
             // Si c'est un monstre, il utilise une compétence aléatoire.
             $attacker->useRandomSkill($defender);
         }

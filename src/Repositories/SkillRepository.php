@@ -3,32 +3,27 @@
 final class SkillRepository extends AbstractRepository
 {
 
-    protected SkillMapper $mapper;
-
     public function findById(int $id): ?Skill
     {
         $sql = "SELECT * FROM `skill` WHERE id = :id";
-
+    
         try {
-
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([
-                ":id" => $id
-            ]);
+            $stmt->execute([':id' => $id]);
             $skillData = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$skillData) {
+                throw new Exception("Skill with ID $id not found.");
+            }
+    
+            return SkillMapper::mapToObject($skillData);
         } catch (PDOException $error) {
-            echo "Erreur lors de la requete : " . $error->getMessage();
-        }
-
-        $skill = $this->mapper->mapToObject($skillData);
-
-        if ($skill) {
-            return $skill;
-        } else {
-            return null;
+            throw new Exception("Database error: " . $error->getMessage());
+        } catch (Exception $e) {
+            throw new Exception("Error in findById: " . $e->getMessage());
         }
     }
-
+    
     public function findByPartnerId(int $partnerId): array
     {
         $query = $this->pdo->prepare("
@@ -69,18 +64,23 @@ final class SkillRepository extends AbstractRepository
 
     public function findByName(string $skillName): Skill
     {
-        $query = $this->pdo->prepare("
-        SELECT skill.*
-        FROM skill
-        WHERE skill.name = :skill_name
-    ");
-        $query->execute(['skill_name' => $skillName]);
-        $result = $query->fetchAll();
-
-        $skill = SkillMapper::mapToObject($result);
-
-        return $skill;
+        $sql = $this->pdo->prepare("
+            SELECT *
+            FROM skill
+            WHERE name = :skillName
+        ");
+        $sql->execute([':skillName' => $skillName]);
+    
+        // Utiliser FETCH_ASSOC pour récupérer uniquement les clés associatives
+        $result = $sql->fetch(PDO::FETCH_ASSOC);
+    
+        if (empty($result)) {
+            throw new Exception("Skill not found: " . $skillName);
+        }
+    
+        return SkillMapper::mapToObject($result);
     }
+    
 
     public function insert(string $name, int $attack, ?string $effect): int
     {

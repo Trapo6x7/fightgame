@@ -28,6 +28,7 @@ $skillsMonster = $skillRepository->findByMonsterId(1);
 $monster->setSkills($skillsMonster);
 
 $_SESSION['monster'] = $monster;
+
 ?>
 
 <div class="combat-layer">

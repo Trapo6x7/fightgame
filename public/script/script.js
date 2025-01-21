@@ -4,20 +4,27 @@ document.querySelectorAll(".fetchAttack").forEach((button) => {
   });
 });
 
+
+
+
 async function handleAttack(event) {
+  console.log(JSON.stringify(event.target.dataset.skill));
   await fetch("../process/processAttack.php", {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
+      DataType: "json",
     },
-    body: new URLSearchParams({
+    body: JSON.stringify({
       action: event.target.dataset.skill,
     }),
   })
-    .then((body) => {
-      console.log(body);
-      document.getElementById("monster-hp").innerHTML = body.monsterHp;
-      document.getElementById("partner-hp").innerHTML = body.partnerHp;
+    .then((response) => 
+       response.json())
+    .then((data) => {
+      console.log(data.json);
+      document.getElementById("monster-hp").textContent = data.monsterHp;
+      document.getElementById("partner-hp").textContent = data.partnerHp;
     })
     .catch((error) => {
       console.error("Error:", error);

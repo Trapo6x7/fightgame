@@ -1,30 +1,18 @@
 <?php
-
 include '../utils/autoloader.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $rawPostData = file_get_contents('php://input');
 $postData = json_decode($rawPostData, true);
-
-
-// echo json_encode([
-//     'message' => $postData['action'],
-// ]);
-// exit;
+$action = $postData['action'];
 
 $validator = new ValidatorService();
 
 $validator->checkMethods('POST');
 
-// Ajouter des stratégies de validation
-// $validator->addStrategy('name', new RequiredValidator()); // Le nom ne doit pas être vide
-// $validator->addStrategy('name', new StringValidator(30)); // Le nom ne doit pas être vide
-// $validator->addStrategy('partnerId', new RequiredValidator()); // Le partnerId doit être un nombre
-// $validator->addStrategy('partnerId', new IntegerValidator()); // Le partnerId doit être un nombre
-
-
 session_start();
-
-
 /**
  * @var Hero $hero
  */

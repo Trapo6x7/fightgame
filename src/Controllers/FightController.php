@@ -16,23 +16,23 @@ final class FightController
     }
 
 
-    public function handleRequest(array $postData)
+    public function handleRequest(array $input)
     {
-        $action = $postData['action'];
 
-        $skill = $this->skillRepo->findByName($action);
+        $action = $input['action'];
+        $skillId = $this->skillRepo->findByName($action)->getId();
 
         // ajouter fightManager
-        $this->fightManager->useSkill($skill, $this->monster, $this->hero->getPartner());
-        $monsterHp = $this->monster->getPv();
-        $partnerHp = $this->monster->getPv();
+        $this->fightManager->useSkill($skillId, $this->hero->getPartner(), $this->monster);
+        $this->fightManager->useSkill($skillId, $this->monster, $this->hero->getPartner());
+
 
         // Renvoie les nouvelles données
-    echo json_encode([
-        'message' => "{$this->hero->getPartner()->getName()} utilise {$action}",
-        'monsterHp' => $monsterHp,
-        'partnerHp' => $partnerHp,
-    ]);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'message' => "{$this->hero->getPartner()->getName()} utilise {$action}",
+            'partnerHp' => "{$this->hero->getPartner()->getPv()}",
+            'monsterHp' => "{$this->monster->getPv()}",
+        ]);
     }
-
 }
