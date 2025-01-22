@@ -34,14 +34,20 @@ final class FightController
             $this->monster,
             $this->hero->getPartner()
         );
-        $test = $this->hero->getPartner()->getLevel();
+       
         // Vérifie si le monstre est vaincu et effectue une montée en niveau
         if ($this->monster->getPv() <= 0) {
             $this->levelUpHero();  // Montée en niveau du héros
-            $test = $this->hero->getPartner()->getLevel();
+          
             $this->loadNextMonster();  // Charger le prochain monstre
         }
-
+        if ($this->hero->getPartner()->getPv() <= 0) {
+            $battleLogs[] = "Game Over! Votre partenaire est KO.";
+            // header('Content-Type: application/json');
+            // echo json_encode([
+            //     'battleLogs' => $battleLogs
+            // ]);
+        }
         // Récupère les compétences du nouveau monstre
         $monsterSkills = $this->monster->getSkills();
         $monsterSkillsData = [];
@@ -69,16 +75,16 @@ final class FightController
             'battleLogs' => $battleLogs, // Ajout des logs
             'monsterSkills' => $monsterSkillsData, // Ajout des compétences du monstre
             'heroStats' => $heroStats, // Ajout des nouvelles stats du héros
-            'test' => $test
         ]);
     }
 
     private function levelUpHero()
     {
+        error_log("Level up hero called");
         $partner = $this->hero->getPartner();
         $partner->setLevel($partner->getLevel() + 1);
-        $partner->setAttack($partner->getAttack() + 2);
-        $partner->setDefense($partner->getDefense() + 2);
+        $partner->setAttack($partner->getAttack() + ($this->monster->getDifficultyLevel() * $this->monster->getDifficultyLevel() + 5));
+        $partner->setDefense($partner->getDefense() + ($this->monster->getDifficultyLevel() * $this->monster->getDifficultyLevel()) + 5);
     }
 
     private function loadNextMonster()

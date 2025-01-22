@@ -148,7 +148,7 @@ final class Monster extends Pokemon
         $this->setPv($this->getPv() + 20);
         return $skillId;
     } else {
-        $damage = max(0, $randomSkill->getAttack() - $enemy->getDefense());
+        $damage = max(0,$this->getAttack() + ($randomSkill->getAttack() / 2)- $enemy->getDefense());
         $enemy->setPv($enemy->getPv() - $damage);
         return $skillId;
     }

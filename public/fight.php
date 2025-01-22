@@ -60,14 +60,12 @@ if ($currentMonster->getPv() <= 0) {
 
 }
 
-// var_dump($_SESSION);
-
 ?>
 
 <div class="combat-layer">
     <div class="combat-header">
         <h1>Combat en cours</h1>
-        <p><?= $hero->getName() ?> / Niveau <?= $partner->getLevel() ?></p>
+        <p ><?= $hero->getName() ?> / Niveau <span id="combat-header"><?= $partner->getLevel() ?></span></p>
     </div>
     <div class="combat-area">
         <div class="player-info">
