@@ -21,7 +21,7 @@ $skills = $partner->getSkills();
 $monsterRepository = new MonsterRepository;
 
 $skillRepository = new SkillRepository();
-$skillsMonster = $skillRepository->findByMonsterId(1);
+
 $monsters = [
     $monster1 = $monsterRepository->findById(1),
     $monster2 = $monsterRepository->findById(2),
@@ -37,6 +37,8 @@ $monsterIndex = isset($_SESSION['monsterIndex']) ? $_SESSION['monsterIndex'] : 0
 
 // Charge le monstre actuel en fonction de l'index
 $currentMonster = $monstersArray[$monsterIndex];
+// Charge les compétences du monstre actuel
+$skillsMonster = $skillRepository->findByMonsterId($currentMonster->getId());
 $currentMonster->setSkills($skillsMonster);
 
 if ($currentMonster->getPv() <= 0) {

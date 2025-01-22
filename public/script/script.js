@@ -43,6 +43,13 @@ async function handleAttack(event) {
         document.getElementById("monster-name").textContent = data.monsterName;
         document.querySelector(".enemy-info img").src = data.monsterImageUrl;
       }
+      data.monsterSkills.forEach(skill => {
+        const skillButton = document.createElement('button');
+        skillButton.classList.add('fetchAttack');
+        skillButton.dataset.skill = skill;
+        skillButton.textContent = skill;
+        skillsContainer.appendChild(skillButton);
+      });
     })
     .catch((error) => {
       console.error("Error:", error);
