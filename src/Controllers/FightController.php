@@ -22,29 +22,33 @@ final class FightController
     {
         $action = $input['action'];
         $skillId = $this->skillRepo->findByName($action)->getId();
-
+    
         $battleLogs = [];
-
+    
         // Utilisation des compétences et ajout des logs
         $battleLogs[] = $this->fightManager->displayBattleLog($skillId, $this->hero->getPartner(), $this->monster);
         $this->fightManager->useSkill($skillId, $this->hero->getPartner(), $this->monster);
-
+    
         $battleLogs[] = $this->fightManager->displayBattleLog(
             $this->monster->useRandomSkill($this->hero->getPartner()),
             $this->monster,
             $this->hero->getPartner()
         );
+    
         // Vérifie si le monstre est vaincu et effectue une montée en niveau
         if ($this->monster->getPv() <= 0) {
             $this->levelUpHero();  // Montée en niveau du héros
             $this->loadNextMonster();  // Charger le prochain monstre
         }
+    
         // Renvoie les nouvelles données en JSON
         header('Content-Type: application/json');
         echo json_encode([
             'message' => "{$this->hero->getPartner()->getName()} utilise {$action}",
             'partnerHp' => $this->hero->getPartner()->getPv(),
             'monsterHp' => $this->monster->getPv(),
+            'monsterName' => $this->monster->getName(),
+            'monsterImageUrl' => $this->monster->getImageUrl(),
             'battleLogs' => $battleLogs, // Ajout des logs
         ]);
     }

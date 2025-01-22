@@ -20,13 +20,44 @@ $skills = $partner->getSkills();
 
 $monsterRepository = new MonsterRepository;
 
-$monster = $monsterRepository->findById(1);
-
 $skillRepository = new SkillRepository();
 $skillsMonster = $skillRepository->findByMonsterId(1);
-$monster->setSkills($skillsMonster);
+$monsters = [
+    $monster1 = $monsterRepository->findById(1),
+    $monster2 = $monsterRepository->findById(2),
+    $monster3 = $monsterRepository->findById(3),
+    $monster4 = $monsterRepository->findById(4),
+    $monster5 = $monsterRepository->findById(5),
+];
 
-$_SESSION['monster'] = $monster;
+
+$monstersArray = [$monster1, $monster2, $monster3, $monster4, $monster5];
+
+$monsterIndex = isset($_SESSION['monsterIndex']) ? $_SESSION['monsterIndex'] : 0; // Récupère l'index du monstre actuel depuis la session, sinon démarre à 0
+
+// Charge le monstre actuel en fonction de l'index
+$currentMonster = $monstersArray[$monsterIndex];
+$currentMonster->setSkills($skillsMonster);
+
+if ($currentMonster->getPv() <= 0) {
+    // Si le monstre est vaincu, on passe au monstre suivant
+    $monsterIndex++; // Passe au monstre suivant
+
+    // Si on a dépassé le dernier monstre, le jeu se termine
+    if ($monsterIndex >= count($monstersArray)) {
+        $_SESSION['monster'] = null;
+        echo "Tous les monstres ont été vaincus ! Fin du jeu.";
+    } else {
+        // Charge le prochain monstre et mets à jour l'index
+        $_SESSION['monster'] = $monstersArray[$monsterIndex];
+        $_SESSION['monsterIndex'] = $monsterIndex; // Sauvegarde l'index dans la session
+    }
+} else {
+    // Sinon, garde le monstre actuel
+    $_SESSION['monster'] = $currentMonster;
+
+}
+
 
 ?>
 
@@ -48,12 +79,12 @@ $_SESSION['monster'] = $monster;
 
         </div>
         <div class="enemy-info">
-            <img src="<?= $monster->getImageUrl() ?>" alt="" class="imgpoke">
+            <img src="<?= $currentMonster->getImageUrl() ?>" alt="" class="imgpoke">
             <div>
-                <p><span id="monster-name"><?= $monster->getName() ?></span></p>
-                <p>PV : <span id="monster-hp"><?= $monster->getPv() ?></span></p>
+                <p><span id="monster-name"><?= $currentMonster->getName() ?></span></p>
+                <p>PV : <span id="monster-hp"><?= $currentMonster->getPv() ?></span></p>
                 <div class="barrePv">
-                    <div id="barrePvMonster" style="width: <?= htmlspecialchars($monster->getPv() / $monster->getPv() * 100); ?>%"></div>
+                    <div id="barrePvMonster" style="width: <?= htmlspecialchars($currentMonster->getPv() / $currentMonster->getPv() * 100); ?>%"></div>
                 </div>
             </div>
 

@@ -28,19 +28,22 @@ async function handleAttack(event) {
 
       document.getElementById("monster-hp").textContent = data.monsterHp;
       document.getElementById("partner-hp").textContent = data.partnerHp;
+
       // Mise à jour des barres de PV
-      document.querySelector(
-        "#barrePvMonster"
-      ).style.width = `${data.monsterHp}%`;
-      document.querySelector(
-        "#barrePvPartner"
-      ).style.width = `${data.partnerHp}%`;
+      document.querySelector("#barrePvMonster").style.width = `${data.monsterHp}%`;
+      document.querySelector("#barrePvPartner").style.width = `${data.partnerHp}%`;
+
       // Mise à jour des logs de bataille
       battleLog.innerHTML = data.battleLogs
         .map((log) => `<p>${log}</p>`)
         .join("");
-    })
 
+      // Mettre à jour le nom et l'image du monstre après chaque attaque
+      if (data.monsterName) {
+        document.getElementById("monster-name").textContent = data.monsterName;
+        document.querySelector(".enemy-info img").src = data.monsterImageUrl;
+      }
+    })
     .catch((error) => {
       console.error("Error:", error);
     });
