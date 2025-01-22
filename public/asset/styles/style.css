@@ -116,6 +116,29 @@ input[type="submit"]:hover {
     font-size: 10px;
 }
 
+.barrePv {
+width :100%;
+background-color:#306230;
+border-radius: 8px;
+height: 2rem;
+margin-bottom: 8px;
+}
+
+#barrePvMonster {
+    width :100%;
+    background-color:#66cc66;
+    border-radius: 8px;
+    height: 2rem;
+    margin-bottom: 8px;
+    }
+
+#barrePvPartner {
+    width :100%;
+    background-color:#66cc66;
+    border-radius: 8px;
+    height: 2rem;
+    margin-bottom: 8px;
+    }
 button {
     font-family: inherit;
     background-color: #66cc66;

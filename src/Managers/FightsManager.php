@@ -68,28 +68,68 @@ class FightsManager
         $skillRepo = new SkillRepository;
         $skill = $skillRepo->findById($skillId);
 
-        if ($attacker instanceof Partner) {
+        if ($attacker instanceof Partner && $defender instanceof Monster) {
 
         if ($skillId === 8) {
             // Copie l'attaque de l'ennemi avec 20% de réduction
             $copiedAttack = $defender->getAttack() * 0.8;
             $damage = max(0, $copiedAttack - $defender->getDefense());
-            $defender->setPv($defender->getPv() - $damage);
-            // echo $attacker->getName() . " copie l'attaque de " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+            $defender->setPv(max(0, $defender->getPv() - $damage));
+          
         } elseif ($skillId === 5) {
             // Soigne le partenaire de 20 PV
-            $attacker->setPv($attacker->getPv() + 20);
-            // echo $attacker->getName() . " utilise " . $skill->getName() . " pour se soigner de 20 PV.\n";
+            $attacker->setPv(min(100, $attacker->getPv() + 20));
+      
         } else {
-            // Si l'effet est autre (attaque directe par exemple)
             $damage = max(0, $skill->getAttack() - $defender->getDefense()); // Applique la défense de l'ennemi
-            $defender->setPv($defender->getPv() - $damage);
-            // echo $attacker->getName() . " attaque " . $defender->getName() . " avec " . $skill->getName() . " pour " . $damage . " dégâts.\n";
+            $defender->setPv(max(0 ,$defender->getPv() - $damage));
         }
+
+        if ($defender->getPv() <= 0) {
+            // Augmentation du niveau du Pokémon attaquant
+            $attacker->setLevel($attacker->getLevel() + 1);
+        
+            // Mise à jour des statistiques du Pokémon attaquant
+            $attacker->setAttack($attacker->getAttack() + (10 * $defender->getDifficultyLevel()));
+            $attacker->setDefense($attacker->getDefense() + (10 * $defender->getDifficultyLevel()));
+        
+            // Charger le prochain Pokémon adverse via son ID
+            $nextMonsterId = $defender->getId() + 1;
+            $nextMonster = $this->monsterRepository->findById($nextMonsterId);
+        
+            // Vérifier si un nouveau monstre est disponible
+            if ($nextMonster) {
+                return "<br> {$defender->getName()} est K.O. ! {$attacker->getName()} passe au niveau {$attacker->getLevel()} ! 
+                        Le prochain adversaire est {$nextMonster->getName()} !";
+            } else {
+                // Fin du jeu si aucun autre monstre n'est disponible
+                return "<br> {$defender->getName()} est K.O. ! {$attacker->getName()} a remporté tous les combats ! Félicitations !";
+            }
+        }
+
     }
-       else if ($attacker instanceof Monster) {
-            // Si c'est un monstre, il utilise une compétence aléatoire.
+       else if ($attacker instanceof Monster && $defender instanceOf Partner) {
             $attacker->useRandomSkill($defender);
+            if ($defender->getPv() <= 0) {
+                return "<br> {$defender->getName()} est K.O. ! {$attacker->getName()} remporte le combat !\n";
+            }
         }
     }
+    public function displayBattleLog(int $skillId, Pokemon $attacker, Pokemon $defender) : string
+    {
+        $skillRepo = new SkillRepository;
+        $skill = $skillRepo->findById($skillId);
+
+        if ($skillId === 8) {
+            return $attacker->getName() . " copie l'attaque de " . $defender->getName() . " avec " . $skill->getName() . "\n";
+        } elseif ($skillId === 5) {
+            if ($attacker->getPv() >=  100){
+                return $attacker->getName() . " utilise " . $skill->getName() . " mais rien ne se passe\n";
+            }
+            return $attacker->getName() . " utilise " . $skill->getName() . " pour se soigner de 20 PV.\n";
+        } else {
+            return $attacker->getName() . " attaque " . $defender->getName() . " avec " . $skill->getName() . "\n";
+        }
+    }
+    
 }
