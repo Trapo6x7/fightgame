@@ -60,6 +60,7 @@ if ($currentMonster->getPv() <= 0) {
 
 }
 
+// var_dump($_SESSION);
 
 ?>
 
