@@ -57,15 +57,32 @@ if ($currentMonster->getPv() <= 0) {
 } else {
     // Sinon, garde le monstre actuel
     $_SESSION['monster'] = $currentMonster;
-
 }
 
 ?>
+<button class="playbutton " id="playButton">▶</button>
+<button class="mutebutton" id="muteButton">❚❚</button>
+
+<audio autoplay muted volume="0.2" id="myAudio">
+    <source src="./asset/audio/Combat.mp3" type="audio/mp3">
+</audio>
+<audio id="beepAudio">
+    <source src="./asset/audio/Beep.mp3" type="audio/mp3">
+</audio>
+<audio id="fuiteAudio">
+    <source src="./asset/audio/Fuite.mp3" type="audio/mp3">
+</audio>
+<audio id="soinAudio">
+    <source src="./asset/audio/soin.mp3" type="audio/mp3">
+</audio>
+<audio id="fightAudio">
+    <source src="./asset/audio/fight.mp3" type="audio/mp3">
+</audio>
 
 <div class="combat-layer">
     <div class="combat-header">
         <h1>Combat en cours</h1>
-        <p ><?= $hero->getName() ?> / Niveau <span id="combat-header"><?= $partner->getLevel() ?></span></p>
+        <p><?= $hero->getName() ?> / Niveau <span id="combat-header"><?= $partner->getLevel() ?></span></p>
     </div>
     <div class="combat-area">
         <div class="player-info">
@@ -98,7 +115,7 @@ if ($currentMonster->getPv() <= 0) {
          */
         foreach ($skills as $skill) {
         ?>
-            <button class="fetchAttack" data-skill="<?= $skill->getName() ?>">
+            <button class="beep fetchAttack" data-skill="<?= $skill->getName() ?>">
                 <?= $skill->getName() ?>
             </button>
         <?php
@@ -106,7 +123,7 @@ if ($currentMonster->getPv() <= 0) {
         ?>
 
         <form action="../process/logout.php" method="post">
-            <button id=logout> Fuite </button>
+            <button class="fuite" id=logout> Fuite </button>
         </form>
     </div>
     <div>
