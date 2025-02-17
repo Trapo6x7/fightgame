@@ -67,10 +67,10 @@ if ($currentMonster->getPv() <= 0) {
     <source src="./asset/audio/Combat.mp3" type="audio/mp3">
 </audio>
 <audio id="beepAudio">
-    <source src="./asset/audio/Beep.mp3" type="audio/mp3">
+    <source src="./asset/audio/beep.mp3" type="audio/mp3">
 </audio>
 <audio id="fuiteAudio">
-    <source src="./asset/audio/Fuite.mp3" type="audio/mp3">
+    <source src="./asset/audio/fuite.mp3" type="audio/mp3">
 </audio>
 <audio id="soinAudio">
     <source src="./asset/audio/soin.mp3" type="audio/mp3">

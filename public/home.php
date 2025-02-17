@@ -11,7 +11,7 @@ require_once './asset/partials/header.php';
   <source src="./asset/audio/Intro.mp3" type="audio/mp3">
 </audio>
 <audio id="beepAudio">
-  <source src="./asset/audio/Beep.mp3" type="audio/mp3">
+  <source src="./asset/audio/beep.mp3" type="audio/mp3">
 </audio>
 <main>
     <section>
