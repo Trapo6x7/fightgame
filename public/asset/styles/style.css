@@ -1,183 +1,192 @@
 body {
-    background-image: url('../imgs/backgroundimage.png');
-    object-fit:cover;
-    font-family: 'Press Start 2P', cursive; /* Utilise une police rétro */
-    color: #ccff66;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  background-image: url("../imgs/backgroundimage.png");
+  object-fit: cover;
+  font-family: "Press Start 2P", cursive; /* Utilise une police rétro */
+  color: #ccff66;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  cursor: url("../imgs/cursorpokeball.cur") 32 32, auto;
 }
 
 main {
-    width: 90%;
-    max-width: 400px;
-    background-color: #0f380f; /* Même vert foncé pour un effet immersif */
-    border: 4px solid #9bbc0f; /* Bordures pixelisées */
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 90%;
+  max-width: 400px;
+  background-color: #0f380f; /* Même vert foncé pour un effet immersif */
+  border: 4px solid #9bbc0f; /* Bordures pixelisées */
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 #hero {
-    height: auto;
-    width: 100%;
+  height: auto;
+  width: 100%;
 }
 
-.imgpoke{
-    height: auto;
-    width: 100%;
+.imgpoke {
+  height: auto;
+  width: 100%;
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #306230; /* Un vert intermédiaire pour différencier la carte */
-    border: 2px solid #9bbc0f;
-    padding: 15px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #306230; /* Un vert intermédiaire pour différencier la carte */
+  border: 2px solid #9bbc0f;
+  padding: 15px;
+  width: 100%;
 }
 
-form{
-    display: flex;
-    gap: 18%;
+form {
+  display: flex;
+  gap: 18%;
 }
 
-label, input, select, button{
-    font-size: 14px;
-    margin-bottom: 10px;
-    width: 90%;
+label,
+input,
+select,
+button {
+  font-size: 14px;
+  margin-bottom: 10px;
+  width: 90%;
 }
 
-input, select {
-    background-color: #0f380f;
-    color: #9bbc0f;
-    border: 2px solid #9bbc0f;
-    padding: 5px;
-    font-family: inherit;
+input,
+select {
+  background-color: #0f380f;
+  color: #9bbc0f;
+  border: 2px solid #9bbc0f;
+  padding: 5px;
+  font-family: inherit;
 }
 
 input[type="submit"] {
-    cursor: pointer;
-    background-color: #9bbc0f;
-    color: #0f380f;
-    font-weight: bold;
-    border: 2px solid #306230;
-    transition: transform 0.2s ease;
+  cursor: pointer;
+  background-color: #9bbc0f;
+  color: #0f380f;
+  font-weight: bold;
+  border: 2px solid #306230;
+  transition: transform 0.2s ease;
 }
 
 input[type="submit"]:hover {
-    transform: scale(1.1);
-    background-color: #0f380f;
-    color: #9bbc0f;
-    border: 2px solid #9bbc0f;
+  transform: scale(1.1);
+  background-color: #0f380f;
+  color: #9bbc0f;
+  border: 2px solid #9bbc0f;
 }
 
 /* Ajout des styles pour la section combat */
 .combat-layer {
-    width: 80%;
-    max-width: 600px;
-    border: 4px solid #99cc33;
-    padding: 20px;
-    text-align: center;
-    background-color: #002200;
+  width: 80%;
+  max-width: 600px;
+  border: 4px solid #99cc33;
+  padding: 20px;
+  text-align: center;
+  background-color: #002200;
 }
 
 .combat-header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .combat-area {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-    border: 2px solid #66cc66;
-    padding: 10px;
-    background-color: #004400;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  border: 2px solid #66cc66;
+  padding: 10px;
+  background-color: #004400;
 }
 
-.player-info, .enemy-info {
-    width: 45%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+.player-info,
+.enemy-info {
+  width: 45%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .combat-actions {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    font-size: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  font-size: 10px;
 }
 
 .barrePv {
-width :100%;
-background-color:#306230;
-border-radius: 8px;
-height: 2rem;
-margin-bottom: 8px;
+  width: 100%;
+  background-color: #306230;
+  border-radius: 8px;
+  height: 2rem;
+  margin-bottom: 8px;
 }
 
-#barrePvMonster, #barrePvPartner {
-    width :100%;
-    background-color:#66cc66;
-    border-radius: 8px;
-    height: 2rem;
-    margin-bottom: 8px;
-    transition: width 0.5s ease-in-out; /* Animation fluide pour la largeur */
-    }
+#barrePvMonster,
+#barrePvPartner {
+  width: 100%;
+  background-color: #66cc66;
+  border-radius: 8px;
+  height: 2rem;
+  margin-bottom: 8px;
+  transition: width 0.5s ease-in-out; /* Animation fluide pour la largeur */
+}
 
 button {
-    font-family: inherit;
-    background-color: #66cc66;
-    color: #002200;
-    border: 2px solid #99cc33;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    transition: width 0.5s ease-in-out; /* Animation fluide pour la largeur */
+  font-family: inherit;
+  background-color: #66cc66;
+  color: #002200;
+  border: 2px solid #99cc33;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  transition: width 0.5s ease-in-out; /* Animation fluide pour la largeur */
 }
 
 button:hover {
-    background-color: #99ff99;
-    color: #003300;
+  background-color: #99ff99;
+  color: #003300;
 }
 
-.playbutton, .mutebutton {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #004400; /* Vert pour Play */
-    color: #9bbc0f;
-    border: none;
-    padding: 10px 15px;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: #66cc66 solid 3px;
-  }
-  
-  .playbutton:hover {
-    background-color: #1f9e30; /* Effet de survol pour Play */
-  }
-  
-  .mutebutton {
-    right: 70px; /* Placé à gauche du bouton Play */
-    background-color: #004400; /* Jaune pour Mute */
-  }
-  
-  .mutebutton:hover {
-    background-color: #22bc36; /* Effet de survol pour Mute */
-  }
+.playbutton,
+.mutebutton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #004400; /* Vert pour Play */
+  color: #9bbc0f;
+  border: none;
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: #66cc66 solid 3px;
+}
+
+.playbutton:hover {
+  background-color: #1f9e30; /* Effet de survol pour Play */
+}
+
+.mutebutton {
+  right: 70px; /* Placé à gauche du bouton Play */
+  background-color: #004400; /* Jaune pour Mute */
+}
+
+.mutebutton:hover {
+  background-color: #22bc36; /* Effet de survol pour Mute */
+}
