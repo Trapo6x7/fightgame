@@ -1,3 +1,7 @@
+*{
+  cursor: url("../imgs/cursorpokeball.cur") 32 32, auto;
+}
+
 body {
   background-image: url("../imgs/backgroundimage.png");
   object-fit: cover;
@@ -9,7 +13,6 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  cursor: url("../imgs/cursorpokeball.cur") 32 32, auto;
 }
 
 main {
