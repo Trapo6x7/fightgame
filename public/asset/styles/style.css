@@ -193,3 +193,10 @@ button:hover {
 .mutebutton:hover {
   background-color: #22bc36; /* Effet de survol pour Mute */
 }
+@media screen and (max-width: 1250px) {
+.combat-actions{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+}
