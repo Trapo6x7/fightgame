@@ -1,18 +1,18 @@
-*{
+* {
   cursor: url("../imgs/cursorpokeball.cur") 32 32, auto;
 }
 
 body {
-    background-image: url('../imgs/backgroundimage.png');
-    object-fit:cover;
-    font-family: 'Press Start 2P', cursive; /* Utilise une police rétro */
-    color: #ccff66;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  background-image: url("../imgs/backgroundimage.png");
+  object-fit: cover;
+  font-family: "Press Start 2P", cursive; /* Utilise une police rétro */
+  color: #ccff66;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 main {
@@ -26,7 +26,6 @@ main {
   justify-content: center;
   align-items: center;
 }
-
 
 #hero {
   height: auto;
@@ -194,9 +193,15 @@ button:hover {
   background-color: #22bc36; /* Effet de survol pour Mute */
 }
 @media screen and (max-width: 1250px) {
-.combat-actions{
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .combat-actions {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .combat-area {
+    justify-content: space-around;
+  }
+  .combat-layer {
+    font-size: 10px;
+  }
 }
